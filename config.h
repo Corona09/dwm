@@ -44,10 +44,11 @@ static const Rule rules[] = {
 	 */
 	/* class                   instance    title          tags mask     isfloating   monitor */
 	{ "Gimp"                 , NULL ,      NULL         , 0      ,      1 ,          -1 } ,
-	{ "Firefox"              , NULL ,      NULL         , 1 << 8 ,      0 ,          -1 } ,
-	{ "fcitx5-config-qt"     , NULL ,      NULL         , 1      ,      1 ,          -1 } ,
-	{ "Nm-connection-editor" , NULL ,      NULL         , 1      ,      1 ,          -1 } ,
-	{ "QQ"                   , NULL ,      "图片查看器" , 0      ,      1 ,          -1 }
+	{ "fcitx5-config-qt"     , NULL ,      NULL         , 0      ,      1 ,          -1 } ,
+	{ "Nm-connection-editor" , NULL ,      NULL         , 0      ,      1 ,          -1 } ,
+	{ "QQ"                   , NULL ,      "图片查看器" , 0      ,      1 ,          -1 } ,
+	{ "KeePassXC"            , NULL ,      NULL         , 1 << 8 ,      0 ,          -1 } ,
+	{ "Zotero"               , NULL ,      NULL         , 1 << 8 ,      0 ,          -1 }
 };
 
 /* layout(s) */
