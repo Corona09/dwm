@@ -6,14 +6,14 @@ dunst &
 
 feh --randomize --bg-fill $HOME/Pictures/wallpaper/ &
 
-ps -ef -u $USER | grep "/usr/bin/kwalletd5" | grep -v grep | awk '{print $2}' | xargs kill
+ps -ef -u $USER | grep "/usr/bin/kwalletd5" | grep -v grep | awk '{print $2}' | xargs kill 2>/dev/null
 nm-applet &
 
 conky &
 
 fcitx5 &
 
-ps -ef -u $USER | grep "/usr/bin/sh $HOME/.local/bin/dwm-bar-repeat" | grep -v grep | awk '{print $2}' | xargs kill
-dwm-bar-repeat &
+ps -ef -u $USER | grep "/usr/bin/sh $HOME/.local/bin/dwm-repeat" | grep -v grep | awk '{print $2}' | xargs kill 2>/dev/null
+dwm-repeat &
 
 nextcloud &

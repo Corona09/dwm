@@ -22,6 +22,14 @@ case $1 in
 			notify "🚫  亮度已经足够低了!"
 		fi
 		;;
+	w)
+		# 调整为暖色调
+		xbrightness.sh = eDP1 0.3 --temp
+		;;
+	c)
+		# 调整为冷色调
+		xbrightness.sh = eDP1 0.6 --temp
+		;;
 	*)  ;;
 esac
 

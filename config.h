@@ -11,7 +11,7 @@ static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows sel
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 static const int showsystray             = 1;   /* 0 means no systray */
-static const char *fonts[]               = { "JetBrainsMono Nerd Font:style=medium:size=11", "monospace:size=11" };
+static const char *fonts[]               = { "JetBrainsMono Nerd Font:style=medium:size=13", "monospace:size=13" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -116,15 +116,16 @@ static const Key keys[] = {
 	{ SuperMask,                    XK_space,  spawn,          {.v = dmenucmd } },
 	{ AltMask|ShiftMask,            XK_s,      spawn,          SHCMD("dwm-screenshot fullscreen") },
 	{ SuperMask|ShiftMask,          XK_s,      spawn,          SHCMD("dwm-screenshot select") },
-	// { AltMask|ShiftMask,            XK_q,      spawn,          SHCMD("dwm-powermenu") },
 	{ AltMask|ShiftMask,            XK_q,      spawn,          {.v = dwmpowermenu} },
 
 	/* 一些功能键 */
-    { 0, XF86XK_MonBrightnessUp,   spawn,      SHCMD("dwm-backlight u") },
-    { 0, XF86XK_MonBrightnessDown, spawn,      SHCMD("dwm-backlight d") },
-	{ 0, XF86XK_AudioMute,		   spawn,      SHCMD("dwm-volume t") },
-	{ 0, XF86XK_AudioRaiseVolume,  spawn,      SHCMD("dwm-volume u") },
-	{ 0, XF86XK_AudioLowerVolume,  spawn,      SHCMD("dwm-volume d") },
+	{ 0,       XF86XK_AudioMute,		 spawn,      SHCMD("dwm-volume t") },
+	{ 0,       XF86XK_AudioRaiseVolume,  spawn,      SHCMD("dwm-volume u") },
+	{ 0,       XF86XK_AudioLowerVolume,  spawn,      SHCMD("dwm-volume d") },
+    { 0,       XF86XK_MonBrightnessUp,   spawn,      SHCMD("dwm-backlight u") },
+    { 0,       XF86XK_MonBrightnessDown, spawn,      SHCMD("dwm-backlight d") },
+	{ AltMask, XF86XK_MonBrightnessUp,   spawn,      SHCMD("dwm-backlight w") }, /* 切换暖色调 */
+	{ AltMask, XF86XK_MonBrightnessDown, spawn,      SHCMD("dwm-backlight c") }, /* 切换冷色调 */
 
 	// { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	// { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
