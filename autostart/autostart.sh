@@ -4,7 +4,7 @@ picom &
 
 dunst &
 
-feh --bg-fill $HOME/Pictures/wallpaper/wallpaper &
+feh --randomize --bg-fill $HOME/Pictures/wallpaper/ &
 
 ps -ef -u $USER | grep "/usr/bin/kwalletd5" | grep -v grep | awk '{print $2}' | xargs kill
 nm-applet &
