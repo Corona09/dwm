@@ -1,25 +1,31 @@
 #!/usr/bin/sh
 
-get_charging_status() {
+get_battery() {
+	battery=`acpi | awk -F ' ' '{print $4}' | awk -F ',' '{print $1}' | awk -F '%' '{print $1}'`
 	status=`acpi | awk -F ' ' '{print $3}' | awk -F ',' '{print $1}'`
 	if [[ "$status" = "Discharging" ]]; then
-		status=""
+		if   [ "$battery" -ge 95 ]; then bat_icon="";
+		elif [ "$battery" -ge 90 ]; then bat_icon="";
+		elif [ "$battery" -ge 80 ]; then bat_icon="";
+		elif [ "$battery" -ge 70 ]; then bat_icon="";
+		elif [ "$battery" -ge 60 ]; then bat_icon="";
+		elif [ "$battery" -ge 50 ]; then bat_icon="";
+		elif [ "$battery" -ge 40 ]; then bat_icon="";
+		elif [ "$battery" -ge 30 ]; then bat_icon="";
+		elif [ "$battery" -ge 20 ]; then bat_icon="";
+		elif [ "$battery" -ge 10 ]; then bat_icon="";
+		else bat_icon=""; fi
 	else
-		status="[$status]"
+		bat_icon=""
 	fi
-	echo $status
-}
-
-get_battery() {
-	battery=`acpi | awk -F ' ' '{print $4}' | awk -F ',' '{print $1}'`
-	echo $battery
+	echo "$bat_icon$battery%"
 }
 
 get_volume () {
 	status=`amixer get Master | tail -n1 | awk -F ' ' '{print $NF}'`
 
 	if [ "$status" = "[off]" ]; then
-		printf "婢 =--"
+		printf "婢 ---"
 		return
 	fi
 
@@ -42,18 +48,37 @@ get_volume () {
 
 get_brightness() {
 	brightness=`xbacklight -get`
-	brightness=`python -c "print(\"{:d}\".format(int($brightness)))"`
-	echo $brightness
+	brightness=`echo "scale=0;$brightness/1" | bc`
+	icon=""
+	echo "$icon $brightness"
 }
 
-charging=$(get_charging_status)
+get_datetime() {
+	date=`date "+%y/%m/%d"`
+	time=`date "+%H:%M"`
+	date_icon=" "
 
-battery="$charging$(get_battery)"
+    case "$(date '+%I')" in
+        "01") time_icon=" " ;;
+        "02") time_icon=" " ;;
+        "03") time_icon=" " ;;
+        "04") time_icon=" " ;;
+        "05") time_icon=" " ;;
+        "06") time_icon=" " ;;
+        "07") time_icon=" " ;;
+        "08") time_icon=" " ;;
+        "09") time_icon=" " ;;
+        "10") time_icon=" " ;;
+        "11") time_icon=" " ;;
+        "12") time_icon=" " ;;
+    esac
 
-brightness=" $(get_brightness)%"
+	echo "$date_icon$date $time_icon$time"
+}
 
-datetime=" `date \"+%y/%m/%d %H:%M\"`"
-
+battery="$(get_battery)"
+brightness="$(get_brightness)%"
+datetime="$(get_datetime)"
 volume="$(get_volume)"
 
 xsetroot -name " $battery $volume $brightness $datetime "
