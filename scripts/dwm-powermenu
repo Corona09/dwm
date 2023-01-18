@@ -2,7 +2,7 @@
 
 confirm() {
 	event="$1"
-	result=$(echo -e "no\nyes" | dmenu $2 -sb red -p "Sure to $event?")
+	result=$(echo -e "yes\nno" | dmenu $2 -sb red -p "Sure to $event?")
 	echo $result
 }
 

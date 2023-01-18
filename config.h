@@ -48,7 +48,7 @@ static const Rule rules[] = {
 	{ "Nm-connection-editor" , NULL ,      NULL         , 0      ,      1 ,          -1 } ,
 	{ "QQ"                   , NULL ,      "图片查看器" , 0      ,      1 ,          -1 } ,
 	{ "KeePassXC"            , NULL ,      NULL         , 1 << 8 ,      0 ,          -1 } ,
-	{ "Zotero"               , NULL ,      NULL         , 1 << 8 ,      0 ,          -1 }
+	{ "Zotero"               , NULL ,      NULL         , 1 << 7 ,      0 ,          -1 }
 };
 
 /* layout(s) */
