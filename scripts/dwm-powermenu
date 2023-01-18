@@ -2,7 +2,7 @@
 
 confirm() {
 	event="$1"
-	result=$(echo -e "no\nyes" | dmenu -sb red -p "Sure to $event?")
+	result=$(echo -e "no\nyes" | dmenu $2 -sb red -p "Sure to $event?")
 	echo $result
 }
 
@@ -11,22 +11,22 @@ opt_poweroff="poweroff"
 opt_reboot="reboot"
 opt_logout="logout"
 
-option=$(echo -e "$opt_cancal\n$opt_poweroff\n$opt_reboot\n$opt_logout" | dmenu -p "POWERMENU")
+option=$(echo -e "$opt_cancal\n$opt_poweroff\n$opt_reboot\n$opt_logout" | dmenu "$@" -p "POWERMENU")
 
 if [[ "$option" = "$opt_cancal" ]]; then
 	exit 0
 elif [[ "$option" = "$opt_poweroff" ]]; then
-	c=$(confirm "$option")
+	c=$(confirm "$option" "$@")
 	if [[ "$c" = "yes" ]]; then
 		poweroff
 	fi
 elif [[ "$option" = "$opt_reboot" ]]; then
-	c=$(confirm "$option")
+	c=$(confirm "$option" "$@")
 	if [[ "$c" = "yes" ]]; then
 		reboot
 	fi
 elif [[ "$option" = "$opt_logout" ]]; then
-	c=$(confirm "$option")
+	c=$(confirm "$option" "$@")
 	if [[ "$c" = "yes" ]]; then
 		killall -q dwm
 	fi
