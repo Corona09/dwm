@@ -14,3 +14,5 @@ rm -rf $HOME/.dwm
 mkdir -p $HOME/.dwm
 cp -f ./autostart/* $HOME/.dwm/
 chmod +x $HOME/.dwm/autostart.sh
+
+cp -f files/dmenu-applications $HOME/.cache/dmenu-applications
