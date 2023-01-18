@@ -19,16 +19,16 @@ get_volume () {
 	status=`amixer get Master | tail -n1 | awk -F ' ' '{print $NF}'`
 
 	if [ "$status" = "[off]" ]; then
-		printf "[MUTE]"
+		printf "婢 =--"
 		return
 	fi
 
     VOL=$(amixer get Master | tail -n1 | sed -r "s/.*\[(.*)%\].*/\1/")
-	indicator="[VOL]"
+	indicator=" "
     printf "%s" "$SEP1"
 
 	if [ "$VOL" -eq 0 ]; then
-		printf "[MUTE]"
+		printf "婢 ---"
 	elif [ "$VOL" -gt 0 ] && [ "$VOL" -le 33 ]; then
 		printf "$indicator%s%%" "$VOL"
 	elif [ "$VOL" -gt 33 ] && [ "$VOL" -le 66 ]; then
@@ -48,13 +48,12 @@ get_brightness() {
 
 charging=$(get_charging_status)
 
-battery="[BAT]$charging$(get_battery)"
+battery="$charging$(get_battery)"
 
-brightness="[LI]`xbacklight -get`%"
-brightness="[LI]$(get_brightness)%"
+brightness=" $(get_brightness)%"
 
-datetime="`date \"+%Y/%m/%d %H:%M\"`"
+datetime=" `date \"+%y/%m/%d %H:%M\"`"
 
 volume="$(get_volume)"
 
-xsetroot -name "$battery $volume $brightness $datetime"
+xsetroot -name " $battery $volume $brightness $datetime "
