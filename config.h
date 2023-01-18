@@ -11,8 +11,7 @@ static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows sel
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 static const int showsystray             = 1;   /* 0 means no systray */
-// static const char *fonts[]          = { "mononoki Nerd Font Mono:size=13", "monospace:size=13" };
-static const char *fonts[]               = { "JetBrainsMono Nerd Font:style=medium:size=13", "monospace:size=13" };
+static const char *fonts[]               = { "JetBrainsMono Nerd Font:style=medium:size=11", "monospace:size=11" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -82,7 +81,9 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, topbar ? NULL : "-b", NULL };
+static const char *dwmlauncher[] = { "dwm-launcher", topbar ? NULL : "-b", NULL };
+static const char *dwmpowermenu[] = { "dwm-powermenu", topbar ? NULL : "-b", NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 static const Key keys[] = {
@@ -111,11 +112,12 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ AltMask,                      XK_space,  spawn,          SHCMD("dwm-launcher") },
+	{ AltMask,                      XK_space,  spawn,          {.v = dwmlauncher } },
 	{ SuperMask,                    XK_space,  spawn,          {.v = dmenucmd } },
 	{ AltMask|ShiftMask,            XK_s,      spawn,          SHCMD("dwm-screenshot fullscreen") },
 	{ SuperMask|ShiftMask,          XK_s,      spawn,          SHCMD("dwm-screenshot select") },
-	{ AltMask|ShiftMask,            XK_q,      spawn,          SHCMD("dwm-powermenu") },
+	// { AltMask|ShiftMask,            XK_q,      spawn,          SHCMD("dwm-powermenu") },
+	{ AltMask|ShiftMask,            XK_q,      spawn,          {.v = dwmpowermenu} },
 
 	/* 一些功能键 */
     { 0, XF86XK_MonBrightnessUp,   spawn,      SHCMD("dwm-backlight u") },
