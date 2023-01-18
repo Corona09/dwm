@@ -34,11 +34,9 @@ get_volume () {
     printf "%s" "$SEP1"
 
 	if [ "$VOL" -eq 0 ]; then
-		printf "婢 ---"
-	elif [ "$VOL" -gt 0 ] && [ "$VOL" -le 33 ]; then
-		printf "$indicator%s%%" "$VOL"
-	elif [ "$VOL" -gt 33 ] && [ "$VOL" -le 66 ]; then
-		printf "$indicator%s%%" "$VOL"
+		printf "婢  0%%"
+	elif [ "$VOL" -gt 0 ] && [ "$VOL" -le 9 ]; then
+		printf "$indicator %s%%" "$VOL"
 	else
 		printf "$indicator%s%%" "$VOL"
 	fi

@@ -1,6 +1,0 @@
-#!/usr/bin/bash
-
-amixer -q set Master toggle
-[[ $? -eq 0 ]] || {
-    notify-send -t 3000 " " "Failed."
-} 

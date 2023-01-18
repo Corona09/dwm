@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+notify() {
+	notify-send -t 1500 "$1"
+}
+
+step=2
+min_brightness=2
+current_brightness=`xbacklight -get`
+
+case $1 in
+	u)
+		xbacklight -inc $step
+		;;
+	d)
+		target_brightness=`echo "$current_brightness-$step" | bc`
+
+		if [[ `echo "$target_brightness >= $min_brightness" | bc` -eq 1 ]]; then
+			xbacklight -dec $step
+		else
+			xbacklight -set $min_brightness
+			notify "🚫  亮度已经足够低了!"
+		fi
+		;;
+	*)  ;;
+esac
+

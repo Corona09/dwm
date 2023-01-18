@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+confirm() {
+	event="$1"
+	result=$(echo -e "no\nyes" | dmenu -sb red -p "Sure to $event?")
+	echo $result
+}
+
+opt_cancal="cancel"
+opt_poweroff="poweroff"
+opt_reboot="reboot"
+opt_logout="logout"
+
+option=$(echo -e "$opt_cancal\n$opt_poweroff\n$opt_reboot\n$opt_logout" | dmenu -p "POWERMENU")
+
+if [[ "$option" = "$opt_cancal" ]]; then
+	exit 0
+elif [[ "$option" = "$opt_poweroff" ]]; then
+	c=$(confirm "$option")
+	if [[ "$c" = "yes" ]]; then
+		poweroff
+	fi
+elif [[ "$option" = "$opt_reboot" ]]; then
+	c=$(confirm "$option")
+	if [[ "$c" = "yes" ]]; then
+		reboot
+	fi
+elif [[ "$option" = "$opt_logout" ]]; then
+	c=$(confirm "$option")
+	if [[ "$c" = "yes" ]]; then
+		killall -q dwm
+	fi
+else
+	exit 1
+fi
+
+exit 1

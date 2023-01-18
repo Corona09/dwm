@@ -5,14 +5,28 @@ if [ "$USER" = "root" ]; then
 	exit 1
 fi
 
-mkdir -p $HOME/.local/bin
-rm -rf $HOME/.local/bin/dwm*
-cp -f ./scripts/dwm* $HOME/.local/bin/
-chmod +x $HOME/.local/bin/dwm*
+case $1 in
+	install)
+		mkdir -p $HOME/.local/bin
+		rm -rf $HOME/.local/bin/dwm*
+		cp -f ./scripts/dwm* $HOME/.local/bin/
+		chmod +x $HOME/.local/bin/dwm*
 
-rm -rf $HOME/.dwm
-mkdir -p $HOME/.dwm
-cp -f ./autostart/* $HOME/.dwm/
-chmod +x $HOME/.dwm/autostart.sh
+		rm -rf $HOME/.dwm
+		mkdir -p $HOME/.dwm
+		cp -f ./autostart/* $HOME/.dwm/
+		chmod +x $HOME/.dwm/autostart.sh
 
-cp -f files/dmenu-applications $HOME/.cache/dmenu-applications
+		cp -f files/dmenu-applications $HOME/.cache/dmenu-applications
+		;;
+	clean)
+		rm -rf $HOME/.dwm
+		rm -f $HOME/.local/bin/dwm*
+		rm $HOME/.cache/dmenu-applications
+		;;
+	*)
+		echo "Usage: sh $0 [install|clean]"
+		;;
+esac
+
+

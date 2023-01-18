@@ -96,7 +96,6 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -112,16 +111,18 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_q,      quitprompt,     {0} },
-	{ AltMask|ShiftMask,            XK_s,      spawn,          SHCMD("dwm-screenshot-fullscreen") },
-	{ SuperMask|ShiftMask,          XK_s,      spawn,          SHCMD("dwm-screenshot-select") },
+	{ AltMask,                      XK_space,  spawn,          SHCMD("dwm-launcher") },
+	{ SuperMask,                    XK_space,  spawn,          {.v = dmenucmd } },
+	{ AltMask|ShiftMask,            XK_s,      spawn,          SHCMD("dwm-screenshot fullscreen") },
+	{ SuperMask|ShiftMask,          XK_s,      spawn,          SHCMD("dwm-screenshot select") },
+	{ AltMask|ShiftMask,            XK_q,      spawn,          SHCMD("dwm-powermenu") },
 
 	/* 一些功能键 */
-    { 0, XF86XK_MonBrightnessUp,   spawn,      {.v = (const char*[]){ "dwm-brightness-up", NULL } } },
-    { 0, XF86XK_MonBrightnessDown, spawn,      {.v = (const char*[]){ "dwm-brightness-down", NULL } } },
-	{ 0, XF86XK_AudioMute,		   spawn,      SHCMD("dwm-volume-toggle") },
-	{ 0, XF86XK_AudioRaiseVolume,  spawn,      SHCMD("dwm-volume-up") },
-	{ 0, XF86XK_AudioLowerVolume,  spawn,      SHCMD("dwm-volume-down") },
+    { 0, XF86XK_MonBrightnessUp,   spawn,      SHCMD("dwm-backlight u") },
+    { 0, XF86XK_MonBrightnessDown, spawn,      SHCMD("dwm-backlight d") },
+	{ 0, XF86XK_AudioMute,		   spawn,      SHCMD("dwm-volume t") },
+	{ 0, XF86XK_AudioRaiseVolume,  spawn,      SHCMD("dwm-volume u") },
+	{ 0, XF86XK_AudioLowerVolume,  spawn,      SHCMD("dwm-volume d") },
 
 	// { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	// { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },

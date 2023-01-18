@@ -1,7 +1,0 @@
-#!/usr/bin/bash
-notify="notify-send -t 1500"
-TITLE=" "
-MSG="📢  Increased  Volume."
-MSG_FAILED="📢  Failed  to  Increase  Volume."
-
-amixer -Mq set Master,0 2%+ unmute && $notify "$MSG" || $notify "$MSG_FAILED"

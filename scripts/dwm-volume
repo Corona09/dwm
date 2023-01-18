@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+maximum=`amixer get Master | tail -n2 | head -n1 | awk -F ' ' '{print $5}'`
+interval=2
+step=`echo "$maximum/(100/$interval)" | bc`
+current_percent=`amixer get Master | tail -n1 | sed -r "s/.*\[(.*)%\].*/\1/"`
+current_value=`amixer get Master | tail -n1 | awk -F ' ' '{print $3}'`
+
+case $1 in
+	u)
+		# 增大音量
+		target_value=$((current_value+step))
+
+		if [[ $target_value -gt $maximum ]]; then
+			target_value=$maximum
+		fi
+
+		amixer -Mq set Master,0 $target_value
+		;;
+	d)
+		# 降低音量
+		target_value=$((current_value-step))
+
+		if [[ $target_value -lt 0 ]]; then
+			target_value=0
+		fi
+
+		amixer -Mq set Master,0 $target_value
+		;;
+	t)
+		amixer -q set Master toggle
+		;;
+	*)
+		;;
+esac
+
