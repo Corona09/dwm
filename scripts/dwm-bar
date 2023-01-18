@@ -1,0 +1,60 @@
+#!/usr/bin/sh
+
+get_charging_status() {
+	status=`acpi | awk -F ' ' '{print $3}' | awk -F ',' '{print $1}'`
+	if [[ "$status" = "Discharging" ]]; then
+		status=""
+	else
+		status="[$status]"
+	fi
+	echo $status
+}
+
+get_battery() {
+	battery=`acpi | awk -F ' ' '{print $4}' | awk -F ',' '{print $1}'`
+	echo $battery
+}
+
+get_volume () {
+	status=`amixer get Master | tail -n1 | awk -F ' ' '{print $NF}'`
+
+	if [ "$status" = "[off]" ]; then
+		printf "[MUTE]"
+		return
+	fi
+
+    VOL=$(amixer get Master | tail -n1 | sed -r "s/.*\[(.*)%\].*/\1/")
+	indicator="[VOL]"
+    printf "%s" "$SEP1"
+
+	if [ "$VOL" -eq 0 ]; then
+		printf "[MUTE]"
+	elif [ "$VOL" -gt 0 ] && [ "$VOL" -le 33 ]; then
+		printf "$indicator%s%%" "$VOL"
+	elif [ "$VOL" -gt 33 ] && [ "$VOL" -le 66 ]; then
+		printf "$indicator%s%%" "$VOL"
+	else
+		printf "$indicator%s%%" "$VOL"
+	fi
+
+    printf "%s\n" "$SEP2"
+}
+
+get_brightness() {
+	brightness=`xbacklight -get`
+	brightness=`python -c "print(\"{:d}\".format(int($brightness)))"`
+	echo $brightness
+}
+
+charging=$(get_charging_status)
+
+battery="[BAT]$charging$(get_battery)"
+
+brightness="[LI]`xbacklight -get`%"
+brightness="[LI]$(get_brightness)%"
+
+datetime="`date \"+%Y/%m/%d %H:%M\"`"
+
+volume="$(get_volume)"
+
+xsetroot -name "$battery $volume $brightness $datetime"
