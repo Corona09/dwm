@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+if ! command -v xbrightness.sh &> /dev/null; then
+	exit 1
+fi
+
 h=`date "+%H"`
 
 if [[ $h -ge 17 ]]; then
