@@ -18,15 +18,31 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
-static const char col_dust_red6[]    = "#f5222d";
+static const char col1[]            = "#ffffff";
+static const char col2[]            = "#ffffff";
+static const char col3[]            = "#ffffff";
+static const char col4[]            = "#ffffff";
+static const char col5[]            = "#ffffff";
+static const char col6[]            = "#ffffff";
+static const char col_dust_red6[]   = "#f5222d";
 static const char col_daybreak8[]   = "#003eb3";
 static const unsigned int baralpha = 139; // 0-255
 static const unsigned int borderalpha = OPAQUE;
+
+// enum { SchemeNorm, SchemeCol1, SchemeCol2, SchemeCol3, SchemeCol4,
+//        SchemeCol5, SchemeCol6, SchemeSel, SchemeTitle }; /* color schemes */
+
 static const char *colors[][3]      = {
 	/*                 fg         bg         border   */
-	[SchemeNorm]   = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]    = { col_gray4, col_cyan,  col_daybreak8  },
-	[SchemeTitle]  = { col_gray3, col_gray1, col_gray2  },
+	[SchemeNorm]  = { col_gray3 , col_gray1 , col_gray2     } ,
+	[SchemeSel]   = { col_gray4 , col_cyan  , col_daybreak8 } ,
+	[SchemeTitle] = { col_gray3 , col_gray1 , col_gray2     } ,
+	[SchemeCol1]  = { col1      , col_gray1 , col_gray2     } ,
+	[SchemeCol2]  = { col2      , col_gray1 , col_gray2     } ,
+	[SchemeCol3]  = { col3      , col_gray1 , col_gray2     } ,
+	[SchemeCol4]  = { col4      , col_gray1 , col_gray2     } ,
+	[SchemeCol5]  = { col5      , col_gray1 , col_gray2     } ,
+	[SchemeCol6]  = { col6      , col_gray1 , col_gray2     } ,
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
@@ -163,6 +179,9 @@ static const Button buttons[] = {
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+	{ ClkStatusText,        0,              Button1,        sigdwmblocks,   {.i = 1} },
+	{ ClkStatusText,        0,              Button2,        sigdwmblocks,   {.i = 2} },
+	{ ClkStatusText,        0,              Button3,        sigdwmblocks,   {.i = 3} },
 	// { ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 };
 
