@@ -1141,8 +1141,8 @@ grid(Monitor *m, uint gappo, uint gappi)
     if (n == 0) return;
     if (n == 1) {
         c = nexttiled(m->clients);
-        cw = (m->ww - 2 * gappo) * 0.7;
-        ch = (m->wh - 2 * gappo) * 0.65;
+        cw = (m->ww - 2 * gappo) * 0.9;
+        ch = (m->wh - 2 * gappo) * 0.85;
         resize(c,
                m->mx + (m->mw - cw) / 2 + gappo,
                m->my + (m->mh - ch) / 2 + gappo,
@@ -1154,7 +1154,7 @@ grid(Monitor *m, uint gappo, uint gappi)
     if (n == 2) {
         c = nexttiled(m->clients);
         cw = (m->ww - 2 * gappo - gappi) / 2;
-        ch = (m->wh - 2 * gappo) * 0.65;
+        ch = (m->wh - 2 * gappo) * 0.85;
         resize(c,
                m->mx + gappo,
                m->my + (m->mh - ch) / 2 + gappo,
