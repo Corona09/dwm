@@ -22,12 +22,16 @@ case $1 in
 		cp -f scripts/xbrightness.sh $HOME/.local/bin/xbrightness.sh
 		chmod +x $HOME/.local/bin/xbrightness.sh
 
+		cp -f scripts/xgetcolortemp.sh $HOME/.local/bin/xgetcolortemp.sh
+		chmod +x $HOME/.local/bin/xgetcolortemp.sh
+
 		;;
 	clean)
 		rm -rf $HOME/.dwm
 		rm -f $HOME/.local/bin/dwm*
 		rm $HOME/.cache/dmenu-applications
 		rm $HOME/.local/bin/xbrightness.sh
+		rm $HOME/.local/bin/xgetcolortemp.sh
 		;;
 	*)
 		echo "Usage: sh $0 [install|clean]"

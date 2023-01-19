@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# from: https://github.com/philippnormann/xrandr-brightness-script/blob/master/brightness.sh
 set -e
 
 if ! command -v bc &> /dev/null

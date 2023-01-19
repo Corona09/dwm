@@ -16,6 +16,7 @@ case $1 in
 		fi
 
 		amixer -Mq set Master,0 $target_value
+		sigdwmblocks 3
 		;;
 	d)
 		# 降低音量
@@ -26,9 +27,11 @@ case $1 in
 		fi
 
 		amixer -Mq set Master,0 $target_value
+		sigdwmblocks 3
 		;;
 	t)
 		amixer -q set Master toggle
+		sigdwmblocks 3
 		;;
 	*)
 		;;

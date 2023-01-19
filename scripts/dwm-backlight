@@ -33,3 +33,4 @@ case $1 in
 	*)  ;;
 esac
 
+sigdwmblocks 2
