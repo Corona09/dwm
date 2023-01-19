@@ -248,6 +248,7 @@ static void setclientstate(Client *c, long state);
 static void setfocus(Client *c);
 static void setfullscreen(Client *c, int fullscreen);
 static void setgaps(const Arg *arg);
+static void setlayoutall(const Arg *arg);
 static void setlayout(const Arg *arg);
 static void setmfact(const Arg *arg);
 static void setup(void);
@@ -1941,6 +1942,22 @@ setgaps(const Arg *arg)
 	p->realgap = MAX(p->realgap, 0);
 	p->gappx = p->realgap * p->isgap;
 	arrange(selmon);
+}
+
+void
+setlayoutall(const Arg *arg)
+{
+	int i;
+	if (arg && arg->v) {
+		for (i=1; i<=LENGTH(tags); i++) {
+			selmon->lt[selmon->sellt] = selmon->pertag->ltidxs[i][selmon->sellt] = (Layout *)arg->v;
+		}
+	}
+	strncpy(selmon->ltsymbol, selmon->lt[selmon->sellt]->symbol, sizeof selmon->ltsymbol);
+	if (selmon->sel)
+		arrange(selmon);
+	else
+		drawbar(selmon);
 }
 
 void
