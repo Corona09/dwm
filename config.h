@@ -48,7 +48,8 @@ static const Rule rules[] = {
 	{ "Nm-connection-editor" , NULL ,      NULL         , 0      ,      1 ,          -1 } ,
 	{ "QQ"                   , NULL ,      "图片查看器" , 0      ,      1 ,          -1 } ,
 	{ "KeePassXC"            , NULL ,      NULL         , 1 << 8 ,      0 ,          -1 } ,
-	{ "Zotero"               , NULL ,      NULL         , 1 << 7 ,      0 ,          -1 }
+	{ "Zotero"               , NULL ,      NULL         , 1 << 7 ,      0 ,          -1 } ,
+	{ "st-float"             , "st" ,      NULL         , 0      ,      1 ,          -1 } ,
 };
 
 /* layout(s) */
@@ -87,6 +88,7 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *dwmlauncher[] = { "dwm-launcher", topbar ? NULL : "-b", NULL };
 static const char *dwmpowermenu[] = { "dwm-powermenu", topbar ? NULL : "-b", NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *termfloat[]  = { "st", "-c", "st-float", NULL };
 
 static const Key keys[] = {
 	TAGKEYS(                        XK_1,                      0)
@@ -100,6 +102,7 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_9,                      8)
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termfloat } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -149,7 +152,6 @@ static const Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
@@ -157,5 +159,6 @@ static const Button buttons[] = {
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+	// { ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 };
 
