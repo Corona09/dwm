@@ -7,7 +7,7 @@ log=$HOME/.dwm-autostart.log
 
 echo -e "$dt\n" >> $log
 
-feh --randomize --bg-fill $HOME/Pictures/wallpaper/
+$HOME/.fehbg
 
 sh $HOME/.dwm/adjust-temp.sh
 
