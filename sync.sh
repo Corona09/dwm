@@ -8,9 +8,9 @@ fi
 case $1 in
 	install)
 		mkdir -p $HOME/.local/bin
-		rm -rf $HOME/.local/bin/dwm*
+		rm -rf $HOME/.local/bin/dwm-*
 		cp -f scripts/dwm* $HOME/.local/bin/
-		chmod +x $HOME/.local/bin/dwm*
+		chmod +x $HOME/.local/bin/dwm-*
 
 		rm -rf $HOME/.dwm
 		mkdir -p $HOME/.dwm
@@ -28,7 +28,7 @@ case $1 in
 		;;
 	clean)
 		rm -rf $HOME/.dwm
-		rm -f $HOME/.local/bin/dwm*
+		rm -f $HOME/.local/bin/dwm-*
 		rm $HOME/.cache/dmenu-applications
 		rm $HOME/.local/bin/xbrightness.sh
 		rm $HOME/.local/bin/xgetcolortemp.sh
