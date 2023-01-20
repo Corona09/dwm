@@ -19,6 +19,7 @@ conky &
 
 fcitx5 &
 
+ps -ef -u $USER | grep "dwmblocks" | grep -v grep | awk '{print $2}' | xargs kill 2>/dev/null
 dwmblocks 2>/dev/null &
 
 nextcloud &
