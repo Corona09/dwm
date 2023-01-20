@@ -229,6 +229,7 @@ static void grabbuttons(Client *c, int focused);
 static void grabkeys(void);
 static void grid(Monitor *m, uint gappo, uint uappi);
 static void incnmaster(const Arg *arg);
+static void htile(Monitor* m);
 static void keypress(XEvent *e);
 static void killclient(const Arg *arg);
 static void magicgrid(Monitor *m);
@@ -1080,6 +1081,14 @@ focusstack(const Arg *arg)
 	}
 }
 
+void
+gap_copy(Gap *to, const Gap *from)
+{
+	to->isgap   = from->isgap;
+	to->realgap = from->realgap;
+	to->gappx   = from->gappx;
+}
+
 Atom
 getatomprop(Client *c, Atom prop)
 {
@@ -1281,6 +1290,46 @@ grid(Monitor *m, uint gappo, uint gappi)
 }
 
 void
+htile(Monitor *m)
+{
+	/*
+	 * n: 窗口数量
+	 * h: 窗口高度
+	 * mh: master height, master 区域的高度
+	 * mx: master x, master 区域的左上角 x 坐标
+	 * tx: tile x, stack 区域的左上角 x 坐标
+	 */
+	unsigned int i, n, w, mh, mx, tx;
+	Client *c;
+
+	/* 统计窗口数量 */
+	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+	if (n == 0)
+		return;
+
+	if (n > m->nmaster) {
+		// m->ww: 显示器窗口宽度
+		mh = m->nmaster ? m->wh * m->mfact : 0;
+	} else {
+		mh = m->ww - m->gap->gappx;
+	}
+	for (i = 0, mx = tx = m->gap->gappx, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+		if (i < m->nmaster) {
+			/* master 窗口 */
+			w = (m->ww - mx) / (MIN(n, m->nmaster) - i) - m->gap->gappx;
+			resize(c, m->wx + mx, m->wy + m->gap->gappx, w - (2*c->bw), mh - (2*c->bw) - m->gap->gappx, 0);
+			if (mx + WIDTH(c) + m->gap->gappx < m->ww)
+				mx += WIDTH(c) + m->gap->gappx;
+		} else {
+			/* stack 窗口 */
+			w = (m->ww - tx) / (n - i) - m->gap->gappx;
+			resize(c, m->wx + tx, m->wy + mh + m->gap->gappx, w - (2*c->bw), m->wh - mh - (2*c->bw) - 2*m->gap->gappx, 0);
+			if (tx + WIDTH(c) + m->gap->gappx < m->ww)
+				tx += WIDTH(c) + m->gap->gappx;
+		}
+}
+
+void
 incnmaster(const Arg *arg)
 {
 	selmon->nmaster = selmon->pertag->nmasters[selmon->pertag->curtag] = MAX(selmon->nmaster + arg->i, 0);
@@ -1470,14 +1519,6 @@ motionnotify(XEvent *e)
         }
 }
 
-void
-resizebarwin(Monitor *m) {
-	unsigned int w = m->ww;
-	if (showsystray && m == systraytomon(m)) {
-		w -= getsystraywidth();
-		XMoveResizeWindow(dpy, m->barwin, m->wx, m->by, w, bh);
-	}
-}
 
 void
 movemouse(const Arg *arg)
@@ -1665,6 +1706,15 @@ resize(Client *c, int x, int y, int w, int h, int interact)
 {
 	if (applysizehints(c, &x, &y, &w, &h, interact))
 		resizeclient(c, x, y, w, h);
+}
+
+void
+resizebarwin(Monitor *m) {
+	unsigned int w = m->ww;
+	if (showsystray && m == systraytomon(m)) {
+		w -= getsystraywidth();
+		XMoveResizeWindow(dpy, m->barwin, m->wx, m->by, w, bh);
+	}
 }
 
 void
@@ -1988,14 +2038,6 @@ setfullscreen(Client *c, int fullscreen)
 		resizeclient(c, c->x, c->y, c->w, c->h);
 		arrange(c->mon);
 	}
-}
-
-void
-gap_copy(Gap *to, const Gap *from)
-{
-	to->isgap   = from->isgap;
-	to->realgap = from->realgap;
-	to->gappx   = from->gappx;
 }
 
 void
