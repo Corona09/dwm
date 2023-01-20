@@ -26,7 +26,7 @@ static const char col5[]            = "#ffffff";
 static const char col6[]            = "#ffffff";
 static const char col_dust_red6[]   = "#f5222d";
 static const char col_daybreak8[]   = "#003eb3";
-static const unsigned int baralpha = 139; // 0-255
+static const unsigned int baralpha = 255; // 0-255
 static const unsigned int borderalpha = OPAQUE;
 
 // enum { SchemeNorm, SchemeCol1, SchemeCol2, SchemeCol3, SchemeCol4,
@@ -37,6 +37,7 @@ static const char *colors[][3]      = {
 	[SchemeNorm]  = { col_gray3 , col_gray1 , col_gray2     } ,
 	[SchemeSel]   = { col_gray4 , col_cyan  , col_daybreak8 } ,
 	[SchemeTitle] = { col_gray3 , col_gray1 , col_gray2     } ,
+    [SchemeSystray] = { NULL, "#222222", NULL },
 	[SchemeCol1]  = { col1      , col_gray1 , col_gray2     } ,
 	[SchemeCol2]  = { col2      , col_gray1 , col_gray2     } ,
 	[SchemeCol3]  = { col3      , col_gray1 , col_gray2     } ,
@@ -48,6 +49,7 @@ static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
 	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
 	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
+	[SchemeTitle]  = { OPAQUE, baralpha, borderalpha },
 };
 
 /* tagging */

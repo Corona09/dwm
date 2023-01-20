@@ -20,6 +20,7 @@
  *
  * To understand everything else, start reading main().
  */
+#include <X11/X.h>
 #include <errno.h>
 #include <locale.h>
 #include <signal.h>
@@ -91,7 +92,7 @@
 /* enums */
 enum { Manager, Xembed, XembedInfo, XLast }; /* Xembed atoms */
 enum { CurNormal, CurHand, CurResize, CurMove, CurLast }; /* cursor */
-enum { SchemeNorm , SchemeSel  , SchemeTitle ,
+enum { SchemeNorm , SchemeSel  , SchemeTitle , SchemeSystray,
 	   SchemeCol1 , SchemeCol2 , SchemeCol3  ,
 	   SchemeCol4 , SchemeCol5 , SchemeCol6  , }; /* color schemes */
 enum { NetSupported, NetSystemTray, NetSystemTrayOP, NetSystemTrayOrientation, NetSystemTrayVisual,
@@ -874,7 +875,7 @@ dirtomon(int dir)
 void
 drawbar(Monitor *m)
 {
-	int x, w;
+	int x, w, stw;
 	int wbar = m->ww;
 	int boxs = drw->fonts->h / 9;
 	int boxw = drw->fonts->h / 6 + 2;
@@ -885,9 +886,8 @@ drawbar(Monitor *m)
 		return;
 
 	if (showsystray && m == systraytomon(m)) {
-		wbar -= getsystraywidth();
-		drw_setscheme(drw, scheme[SchemeNorm]);
-		// drw_rect(drw, m->ww - stw, 0, stw, bh, 1, 1);
+		stw = getsystraywidth();
+		wbar -= stw;
 	}
 
 	/* draw status first so it can be overdrawn by tags later */
@@ -2789,79 +2789,61 @@ updatestatus(void)
 void
 updatesystray(int updatebar)
 {
-	XSetWindowAttributes wa;
-	XWindowChanges wc;
-	Client *i;
-	Monitor *m = systraytomon(NULL);
-	unsigned int x = m->mx + m->mw;
-	unsigned int w = 1, xpad = 0, ypad = 0;
-	#if BARPADDING_PATCH
-	xpad = sp;
-	ypad = vp;
-	#endif // BARPADDING_PATCH
+    XSetWindowAttributes wa;
+    XWindowChanges wc;
+    Client *i;
+    Monitor *m = systraytomon(NULL);
+    unsigned int x = m->mx + m->mw;
+    unsigned int w = 1;
 
-	if (!showsystray)
-		return;
-	if (!systray) {
-		/* init systray */
-		if (!(systray = (Systray *)calloc(1, sizeof(Systray))))
-			die("fatal: could not malloc() %u bytes\n", sizeof(Systray));
-
-		wa.override_redirect = True;
-		wa.event_mask = ButtonPressMask|ExposureMask;
-		wa.background_pixel = 0;
-		wa.border_pixel = 0;
-		wa.colormap = cmap;
-		systray->win = XCreateWindow(dpy, root, x - xpad, m->by + ypad, w, bh, 0, depth,
-						InputOutput, visual,
-						CWOverrideRedirect|CWBackPixel|CWBorderPixel|CWColormap|CWEventMask, &wa);
-		XSelectInput(dpy, systray->win, SubstructureNotifyMask);
-		XChangeProperty(dpy, systray->win, netatom[NetSystemTrayOrientation], XA_CARDINAL, 32,
-				PropModeReplace, (unsigned char *)&systrayorientation, 1);
-		XChangeProperty(dpy, systray->win, netatom[NetSystemTrayVisual], XA_VISUALID, 32,
-				PropModeReplace, (unsigned char *)&visual->visualid, 1);
-		XChangeProperty(dpy, systray->win, netatom[NetWMWindowType], XA_ATOM, 32,
-				PropModeReplace, (unsigned char *)&netatom[NetWMWindowTypeDock], 1);
-		XMapRaised(dpy, systray->win);
-		XSetSelectionOwner(dpy, netatom[NetSystemTray], systray->win, CurrentTime);
-		if (XGetSelectionOwner(dpy, netatom[NetSystemTray]) == systray->win) {
-			sendevent(root, xatom[Manager], StructureNotifyMask, CurrentTime, netatom[NetSystemTray], systray->win, 0, 0);
-			XSync(dpy, False);
-		}
-		else {
-			fprintf(stderr, "dwm: unable to obtain system tray.\n");
-			free(systray);
-			systray = NULL;
-			return;
-		}
-	}
-
-	for (w = 0, i = systray->icons; i; i = i->next) {
-		wa.background_pixel = 0;
-		XChangeWindowAttributes(dpy, i->win, CWBackPixel, &wa);
-		XMapRaised(dpy, i->win);
-		w += systrayspacing;
-		i->x = w;
-		XMoveResizeWindow(dpy, i->win, i->x, 0, i->w, i->h);
-		w += i->w;
-		if (i->mon != m)
-			i->mon = m;
-	}
-	w = w ? w + systrayspacing : 1;
-	x -= w;
-	XMoveResizeWindow(dpy, systray->win, x - xpad, m->by + ypad, w, bh);
-	wc.x = x - xpad;
-	wc.y = m->by + ypad;
-	wc.width = w;
-	wc.height = bh;
-	wc.stack_mode = Above; wc.sibling = m->barwin;
-	XConfigureWindow(dpy, systray->win, CWX|CWY|CWWidth|CWHeight|CWSibling|CWStackMode, &wc);
-	XMapWindow(dpy, systray->win);
-	XMapSubwindows(dpy, systray->win);
-	XSync(dpy, False);
-
-	if (updatebar)
-		drawbar(m);
+    if (!showsystray)
+        return;
+    if (!systray) {
+        /* init systray */
+        if (!(systray = (Systray *)calloc(1, sizeof(Systray))))
+            die("fatal: could not malloc() %u bytes\n", sizeof(Systray));
+        systray->win = XCreateSimpleWindow(dpy, root, x, m->by, w, bh, 0, 0, scheme[SchemeSystray][ColBg].pixel);
+        wa.event_mask        = ButtonPressMask | ExposureMask;
+        wa.override_redirect = True;
+        wa.background_pixel  = scheme[SchemeSystray][ColBg].pixel;
+        XSelectInput(dpy, systray->win, SubstructureNotifyMask);
+        XChangeProperty(dpy, systray->win, netatom[NetSystemTrayOrientation], XA_CARDINAL, 32,
+                PropModeReplace, (unsigned char *)&netatom[NetSystemTrayOrientationHorz], 1);
+        XChangeWindowAttributes(dpy, systray->win, CWEventMask|CWOverrideRedirect|CWBackPixel, &wa);
+        XMapRaised(dpy, systray->win);
+        XSetSelectionOwner(dpy, netatom[NetSystemTray], systray->win, CurrentTime);
+        if (XGetSelectionOwner(dpy, netatom[NetSystemTray]) == systray->win) {
+            sendevent(root, xatom[Manager], StructureNotifyMask, CurrentTime, netatom[NetSystemTray], systray->win, 0, 0);
+            XSync(dpy, False);
+        }
+        else {
+            fprintf(stderr, "dwm: unable to obtain system tray.\n");
+            free(systray);
+            systray = NULL;
+            return;
+        }
+    }
+    for (w = 0, i = systray->icons; i; i = i->next) {
+        /* make sure the background color stays the same */
+        wa.background_pixel  = scheme[SchemeSystray][ColBg].pixel;
+        XChangeWindowAttributes(dpy, i->win, CWBackPixel, &wa);
+        XMapRaised(dpy, i->win);
+        w += systrayspacing;
+        i->x = w;
+        XMoveResizeWindow(dpy, i->win, i->x + 3, 0 + 3, MAX(i->w - 6, bh - 6), bh - 6); // 限制过大的图标
+        w += MAX(i->w, bh);
+        if (i->mon != m)
+            i->mon = m;
+    }
+    w = w ? w + systrayspacing : 1;
+    x -= w;
+    XMoveResizeWindow(dpy, systray->win, x, m->by, w, bh);
+    wc.x = x; wc.y = m->by; wc.width = w; wc.height = bh;
+    wc.stack_mode = Above; wc.sibling = m->barwin;
+    XConfigureWindow(dpy, systray->win, CWX|CWY|CWWidth|CWHeight|CWSibling|CWStackMode, &wc);
+    XMapWindow(dpy, systray->win);
+    XMapSubwindows(dpy, systray->win);
+    XSync(dpy, False);
 }
 
 void
