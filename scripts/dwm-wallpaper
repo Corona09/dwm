@@ -1,0 +1,47 @@
+#!/usr/bin/bash
+
+msg() {
+    notify-send  -i "$1" -t 3000 "$2"
+}
+
+record_file=$HOME/.current_wallpaper
+[[ -f $record_file ]] || touch $record_file
+current_wallpaper=`cat $record_file`
+wallpaper_dir=$HOME/Pictures/wallpaper
+wallpapers=`ls ${wallpaper_dir}`
+wallpapers=(${wallpapers// /})
+
+# 壁纸数量
+wallpaper_num=${#wallpapers[@]}
+
+current_index=-1
+for (( i = 0; i < $wallpaper_num; i++ )); do
+    [[ "${wallpapers[$i]}" = "${current_wallpaper}" ]] && {
+        current_index=$i
+        break
+    }
+done
+
+[[ "${current_index}" -eq "-1" ]] && {
+    current_index=0
+}
+
+if [ $# -ge 1 ] && [ "$1" = "prev" ]; then
+	if [[ "$1" = "prev" ]]; then
+		next_index=$((current_index+wallpaper_num-1))
+	elif [[ "$1" = "random" ]]; then
+		next_index=$((RANDOM % wallpaper_num))
+	fi
+else
+	next_index=$((current_index+1))
+fi
+
+next_index=$((next_index % wallpaper_num))
+
+chosen=${wallpapers[${next_index}]}
+
+echo "${chosen}" > $record_file
+
+feh --bg-fill ${wallpaper_dir}/${chosen}
+
+msg ${wallpaper_dir}/${chosen}  "Switch to wallpaper ${current_colorscheme}/${chosen}"
