@@ -13,6 +13,7 @@ Corona 配置的 dwm
 - titlecolor
 - pertag
 - dwmblocks
+- dwmc
 
 补丁文件见 `patched` 文件夹
 
