@@ -1311,7 +1311,7 @@ htile(Monitor *m)
 		// m->ww: 显示器窗口宽度
 		mh = m->nmaster ? m->wh * m->mfact : 0;
 	} else {
-		mh = m->ww - m->gap->gappx;
+		mh = m->wh - m->gap->gappx;
 	}
 	for (i = 0, mx = tx = m->gap->gappx, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if (i < m->nmaster) {

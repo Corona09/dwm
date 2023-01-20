@@ -11,6 +11,8 @@ Corona 配置的 dwm
 - fullgaps
 - quitprompt
 - titlecolor
+- pertag
+- dwmblocks
 
 补丁文件见 `patched` 文件夹
 
@@ -33,6 +35,10 @@ sh sync.sh clean
 ## MagicGrid 布局
 
 参~~(照)~~考~~(抄)~~了 [yaocccc](https://github.com/yaocccc/dwm) 的 MagicGrid.
+
+## Horizontal Tile 布局
+
+对 tile 布局的魔改, 将 master 窗口水平放置于上方.
 
 ## 相关依赖
 
