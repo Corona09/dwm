@@ -105,7 +105,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, topbar ? NULL : "-b", NULL };
 static const char *dwmlauncher[] = { "dwm-launcher", topbar ? NULL : "-b", NULL };
 static const char *dwmpowermenu[] = { "dwm-powermenu", topbar ? NULL : "-b", NULL };
-static const char *termcmd[]  = { "konsole", NULL };
+static const char *termcmd[]  = { "st", NULL };
 static const char *termfloat[]  = { "st", "-c", "st-float", NULL };
 
 static const Key keys[] = {
@@ -121,6 +121,7 @@ static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termfloat } },
+	{ CAMask,                       XK_t,      spawn,          SHCMD("konsole") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -155,8 +156,8 @@ static const Key keys[] = {
 	{ AltMask, XF86XK_MonBrightnessUp,   spawn,      SHCMD("dwm-backlight w") }, /* 切换暖色调 */
 	{ AltMask, XF86XK_MonBrightnessDown, spawn,      SHCMD("dwm-backlight c") }, /* 切换冷色调 */
 
-	// { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	// { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	// { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	// { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	// { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
