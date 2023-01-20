@@ -66,6 +66,7 @@ static const Rule rules[] = {
 	{ "KeePassXC"            , NULL ,      NULL         , 1 << 8 ,      0 ,          -1 } ,
 	{ "Zotero"               , NULL ,      NULL         , 1 << 7 ,      0 ,          -1 } ,
 	{ "st-float"             , "st" ,      NULL         , 0      ,      1 ,          -1 } ,
+	{ "Pavucontrol"          , NULL ,      NULL         , 0      ,      1 ,          -1 } ,
 };
 
 /* layout(s) */
