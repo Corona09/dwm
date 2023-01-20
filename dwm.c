@@ -875,7 +875,7 @@ void
 drawbar(Monitor *m)
 {
 	int x, w;
-        int wbar = m->ww;
+	int wbar = m->ww;
 	int boxs = drw->fonts->h / 9;
 	int boxw = drw->fonts->h / 6 + 2;
 	unsigned int i, occ = 0, urg = 0;
@@ -886,7 +886,7 @@ drawbar(Monitor *m)
 
 	if (showsystray && m == systraytomon(m)) {
 		wbar -= getsystraywidth();
-		// drw_setscheme(drw, scheme[SchemeNorm]);
+		drw_setscheme(drw, scheme[SchemeNorm]);
 		// drw_rect(drw, m->ww - stw, 0, stw, bh, 1, 1);
 	}
 
@@ -2205,7 +2205,7 @@ setup(void)
 	xatom[XembedInfo] = XInternAtom(dpy, "_XEMBED_INFO", False);
 	/* init cursors */
 	cursor[CurNormal] = drw_cur_create(drw, XC_left_ptr);
-        cursor[CurHand] = drw_cur_create(drw, XC_hand2);
+	cursor[CurHand] = drw_cur_create(drw, XC_hand2);
 	cursor[CurResize] = drw_cur_create(drw, XC_sizing);
 	cursor[CurMove] = drw_cur_create(drw, XC_fleur);
 	/* init appearance */
@@ -2221,14 +2221,14 @@ setup(void)
 	/* supporting window for NetWMCheck */
 	wmcheckwin = XCreateSimpleWindow(dpy, root, 0, 0, 1, 1, 0, 0, 0);
 	XChangeProperty(dpy, wmcheckwin, netatom[NetWMCheck], XA_WINDOW, 32,
-		PropModeReplace, (unsigned char *) &wmcheckwin, 1);
+	PropModeReplace, (unsigned char *) &wmcheckwin, 1);
 	XChangeProperty(dpy, wmcheckwin, netatom[NetWMName], utf8string, 8,
-		PropModeReplace, (unsigned char *) "dwm", 3);
+	PropModeReplace, (unsigned char *) "dwm", 3);
 	XChangeProperty(dpy, root, netatom[NetWMCheck], XA_WINDOW, 32,
-		PropModeReplace, (unsigned char *) &wmcheckwin, 1);
+	PropModeReplace, (unsigned char *) &wmcheckwin, 1);
 	/* EWMH support per view */
 	XChangeProperty(dpy, root, netatom[NetSupported], XA_ATOM, 32,
-		PropModeReplace, (unsigned char *) netatom, NetLast);
+	PropModeReplace, (unsigned char *) netatom, NetLast);
 	XDeleteProperty(dpy, root, netatom[NetClientList]);
 	/* select events */
 	wa.cursor = cursor[CurNormal]->cursor;
@@ -2283,32 +2283,32 @@ sigchld(int unused)
 void
 sigdwmblocks(const Arg *arg)
 {
-        static int fd = -1;
-        struct flock fl;
-        union sigval sv;
+	static int fd = -1;
+	struct flock fl;
+	union sigval sv;
 
-        if (!dwmblockssig)
-                return;
-        fl.l_type = F_WRLCK;
-        fl.l_whence = SEEK_SET;
-        fl.l_start = 0;
-        fl.l_len = 0;
-        if (fd != -1) {
-                if (fcntl(fd, F_GETLK, &fl) != -1 && fl.l_type == F_WRLCK)
-                        goto signal;
-                close(fd);
-                fl.l_type = F_WRLCK;
-        }
-        if ((fd = open(DWMBLOCKSLOCKFILE, O_RDONLY | O_CLOEXEC)) == -1)
-                return;
-        if (fcntl(fd, F_GETLK, &fl) == -1 || fl.l_type != F_WRLCK) {
-                close(fd);
-                fd = -1;
-                return;
-        }
+	if (!dwmblockssig)
+		return;
+	fl.l_type = F_WRLCK;
+	fl.l_whence = SEEK_SET;
+	fl.l_start = 0;
+	fl.l_len = 0;
+	if (fd != -1) {
+		if (fcntl(fd, F_GETLK, &fl) != -1 && fl.l_type == F_WRLCK)
+			goto signal;
+		close(fd);
+		fl.l_type = F_WRLCK;
+	}
+	if ((fd = open(DWMBLOCKSLOCKFILE, O_RDONLY | O_CLOEXEC)) == -1)
+		return;
+	if (fcntl(fd, F_GETLK, &fl) == -1 || fl.l_type != F_WRLCK) {
+		close(fd);
+		fd = -1;
+		return;
+	}
 signal:
-        sv.sival_int = (dwmblockssig << 8) | arg->i;
-        sigqueue(fl.l_pid, SIGRTMIN, sv);
+	sv.sival_int = (dwmblockssig << 8) | arg->i;
+	sigqueue(fl.l_pid, SIGRTMIN, sv);
 }
 
 void
@@ -2590,36 +2590,36 @@ updateclientlist()
 void
 updatedwmblockssig(int x)
 {
-        char *sts = stexts;
-        char *stp = stexts;
-        char tmp;
+	char *sts = stexts;
+	char *stp = stexts;
+	char tmp;
 
-        while (*sts != '\0') {
-                if ((unsigned char)*sts >= ' ') {
-                        sts++;
-                        continue;
-                }
-                tmp = *sts;
-                *sts = '\0';
-                x += TTEXTW(stp);
-                *sts = tmp;
-                if (x > 0) {
-                        if (tmp == DELIMITERENDCHAR)
-                                break;
-                        if (!selmon->statushandcursor) {
-                                selmon->statushandcursor = 1;
-                                XDefineCursor(dpy, selmon->barwin, cursor[CurHand]->cursor);
-                        }
-                        dwmblockssig = tmp;
-                        return;
-                }
-                stp = ++sts;
-        }
-        if (selmon->statushandcursor) {
-                selmon->statushandcursor = 0;
-                XDefineCursor(dpy, selmon->barwin, cursor[CurNormal]->cursor);
-        }
-        dwmblockssig = 0;
+	while (*sts != '\0') {
+		if ((unsigned char)*sts >= ' ') {
+			sts++;
+			continue;
+		}
+		tmp = *sts;
+		*sts = '\0';
+		x += TTEXTW(stp);
+		*sts = tmp;
+		if (x > 0) {
+			if (tmp == DELIMITERENDCHAR)
+				break;
+			if (!selmon->statushandcursor) {
+				selmon->statushandcursor = 1;
+				XDefineCursor(dpy, selmon->barwin, cursor[CurHand]->cursor);
+			}
+			dwmblockssig = tmp;
+			return;
+		}
+		stp = ++sts;
+	}
+	if (selmon->statushandcursor) {
+		selmon->statushandcursor = 0;
+		XDefineCursor(dpy, selmon->barwin, cursor[CurNormal]->cursor);
+	}
+	dwmblockssig = 0;
 }
 
 int
