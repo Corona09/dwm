@@ -59,14 +59,15 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class                   instance    title          tags mask     isfloating   monitor */
-	{ "Gimp"                 , NULL ,      NULL         , 0      ,      1 ,          -1 } ,
-	{ "fcitx5-config-qt"     , NULL ,      NULL         , 0      ,      1 ,          -1 } ,
-	{ "Nm-connection-editor" , NULL ,      NULL         , 0      ,      1 ,          -1 } ,
-	{ "QQ"                   , NULL ,      "图片查看器" , 0      ,      1 ,          -1 } ,
-	{ "KeePassXC"            , NULL ,      NULL         , 1 << 8 ,      0 ,          -1 } ,
-	{ "Zotero"               , NULL ,      NULL         , 1 << 7 ,      0 ,          -1 } ,
-	{ "st-float"             , "st" ,      NULL         , 0      ,      1 ,          -1 } ,
-	{ "Pavucontrol"          , NULL ,      NULL         , 0      ,      1 ,          -1 } ,
+	{ "Gimp"                 , NULL,       NULL         , 0      ,      1 ,          -1 } ,
+	{ "fcitx5-config-qt"     , NULL,       NULL         , 0      ,      1 ,          -1 } ,
+	{ "Nm-connection-editor" , NULL,       NULL         , 0      ,      1 ,          -1 } ,
+	{ "QQ"                   , NULL,       "图片查看器" , 0      ,      1 ,          -1 } ,
+	{ "KeePassXC"            , NULL,       NULL         , 1 << 8 ,      0 ,          -1 } ,
+	{ "Zotero"               , NULL,       NULL         , 1 << 7 ,      0 ,          -1 } ,
+	{ "st-float"             , "st",       NULL         , 0      ,      1 ,          -1 } ,
+	{ "Pavucontrol"          , NULL,       NULL         , 0      ,      1 ,          -1 } ,
+	{ "firefox"              , "Places",   NULL         , 0      ,      1 ,          -1 } ,
 };
 
 /* layout(s) */
@@ -104,7 +105,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, topbar ? NULL : "-b", NULL };
 static const char *dwmlauncher[] = { "dwm-launcher", topbar ? NULL : "-b", NULL };
 static const char *dwmpowermenu[] = { "dwm-powermenu", topbar ? NULL : "-b", NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "konsole", NULL };
 static const char *termfloat[]  = { "st", "-c", "st-float", NULL };
 
 static const Key keys[] = {
@@ -168,6 +169,9 @@ static const Key keys[] = {
 
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
+/* Button1 鼠标左键点击 */
+/* Button2 鼠标中键点击 */
+/* Button3 鼠标右键点击 */
 static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
