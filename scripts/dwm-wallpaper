@@ -1,9 +1,5 @@
 #!/usr/bin/bash
 
-msg() {
-    notify-send  -i "$1" -t 3000 "$2"
-}
-
 record_file=$HOME/.current_wallpaper
 [[ -f $record_file ]] || touch $record_file
 current_wallpaper=`cat $record_file`
@@ -22,7 +18,7 @@ for (( i = 0; i < $wallpaper_num; i++ )); do
     }
 done
 
-[[ "${current_index}" -eq "-1" ]] && {
+[[ "$current_index" -eq "-1" ]] && {
     current_index=0
 }
 
@@ -40,8 +36,6 @@ next_index=$((next_index % wallpaper_num))
 
 chosen=${wallpapers[${next_index}]}
 
-echo "${chosen}" > $record_file
+echo "$chosen" > $record_file
 
-feh --bg-fill ${wallpaper_dir}/${chosen}
-
-msg ${wallpaper_dir}/${chosen}  "Switch to wallpaper ${current_colorscheme}/${chosen}"
+feh --bg-fill $wallpaper_dir/$chosen
