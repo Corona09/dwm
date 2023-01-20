@@ -68,6 +68,8 @@ static const Rule rules[] = {
 	{ "st-float"             , "st",       NULL         , 0      ,      1 ,          -1 } ,
 	{ "Pavucontrol"          , NULL,       NULL         , 0      ,      1 ,          -1 } ,
 	{ "firefox"              , "Places",   NULL         , 0      ,      1 ,          -1 } ,
+	{ "falkon"               , "falkon",   NULL         , 0      ,      1 ,          -1 } ,
+	{ "Falkon"     , "Browsing Library",   NULL         , 0      ,      1 ,          -1 } ,
 };
 
 /* layout(s) */
@@ -191,6 +193,8 @@ static const Button buttons[] = {
 	{ ClkStatusText,        0,              Button1,        sigdwmblocks,   {.i = 1} },
 	{ ClkStatusText,        0,              Button2,        sigdwmblocks,   {.i = 2} },
 	{ ClkStatusText,        0,              Button3,        sigdwmblocks,   {.i = 3} },
+	{ ClkStatusText,        0,              Button4,        sigdwmblocks,   {.i = 4} },
+	{ ClkStatusText,        0,              Button5,        sigdwmblocks,   {.i = 5} },
 };
 
 void
