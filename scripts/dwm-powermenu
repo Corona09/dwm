@@ -6,15 +6,6 @@ opt_reboot="reboot"
 opt_logout="logout"
 option=$(echo -e "$opt_cancal\n$opt_poweroff\n$opt_reboot\n$opt_logout" | dmenu "$@" -p "POWERMENU")
 
-# for((i=1; i <= $#; i++)); do
-# 	if [[ "$i" = "-fn" ]]; then
-# 		j=$((i+1))
-# 		fn=$j
-# 	fi
-# done
-# 
-# echo $fn
-
 confirm() {
 	event="$1"
 	result=$(echo -e "yes\nno" | dmenu "$2" "$3" -sb red -p "Sure to $event?")
