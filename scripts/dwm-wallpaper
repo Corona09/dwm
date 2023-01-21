@@ -4,6 +4,13 @@ record_file=$HOME/.current_wallpaper
 [[ -f $record_file ]] || touch $record_file
 current_wallpaper=`cat $record_file`
 wallpaper_dir=$HOME/Pictures/wallpaper
+
+[[ -d $wallpaper_dir ]] || {
+	mkdir -p $wallpaper_dir
+	cd $wallpaper_dir
+	curl -fLO "https://corona-oss.oss-cn-qingdao.aliyuncs.com//img/K-351642.png"
+}
+
 wallpapers=`ls ${wallpaper_dir}`
 wallpapers=(${wallpapers// /})
 
