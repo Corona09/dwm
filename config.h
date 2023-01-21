@@ -17,6 +17,8 @@ static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
+static const char col_gray5[]       = "#2b2c30";
+static const char col_gray6[]       = "#888888";
 static const char col_cyan[]        = "#005577";
 static const char col1[]            = "#ffffff";
 static const char col2[]            = "#ffffff";
@@ -26,30 +28,27 @@ static const char col5[]            = "#ffffff";
 static const char col6[]            = "#ffffff";
 static const char col_dust_red6[]   = "#f5222d";
 static const char col_daybreak8[]   = "#003eb3";
-static const unsigned int baralpha = 255; // 0-255
+static const unsigned int baralpha = 245; // 0-255
 static const unsigned int borderalpha = OPAQUE;
 
-// enum { SchemeNorm, SchemeCol1, SchemeCol2, SchemeCol3, SchemeCol4,
-//        SchemeCol5, SchemeCol6, SchemeSel, SchemeTitle }; /* color schemes */
-
 static const char *colors[][3]      = {
-	/*                 fg         bg         border   */
-	[SchemeNorm]  = { col_gray3 , col_gray1 , col_gray2     } ,
-	[SchemeSel]   = { col_gray4 , col_cyan  , col_daybreak8 } ,
-	[SchemeTitle] = { col_gray3 , col_gray1 , col_gray2     } ,
-    [SchemeSystray] = { NULL, "#222222", NULL },
-	[SchemeCol1]  = { col1      , col_gray1 , col_gray2     } ,
-	[SchemeCol2]  = { col2      , col_gray1 , col_gray2     } ,
-	[SchemeCol3]  = { col3      , col_gray1 , col_gray2     } ,
-	[SchemeCol4]  = { col4      , col_gray1 , col_gray2     } ,
-	[SchemeCol5]  = { col5      , col_gray1 , col_gray2     } ,
-	[SchemeCol6]  = { col6      , col_gray1 , col_gray2     } ,
+	/*                  fg          bg          border   */
+	[SchemeNorm]    = { col_gray3 , col_gray5 , col_gray2     } ,
+	[SchemeSel]     = { col_gray4 , col_cyan  , col_daybreak8 } ,
+	[SchemeTitle]   = { col_gray3 , col_gray5 , col_gray2     } ,
+    [SchemeSystray] = { col_gray3 , col_gray5 , col_gray2     },
+	[SchemeCol1]    = { col1      , col_gray1 , col_gray2     } ,
+	[SchemeCol2]    = { col2      , col_gray1 , col_gray2     } ,
+	[SchemeCol3]    = { col3      , col_gray1 , col_gray2     } ,
+	[SchemeCol4]    = { col4      , col_gray1 , col_gray2     } ,
+	[SchemeCol5]    = { col5      , col_gray1 , col_gray2     } ,
+	[SchemeCol6]    = { col6      , col_gray1 , col_gray2     } ,
 };
 static const unsigned int alphas[][3]      = {
-	/*               fg      bg        border     */
-	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
-	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
-	[SchemeTitle]  = { OPAQUE, baralpha, borderalpha },
+	/*                fg      bg        border     */
+	[SchemeNorm]  = { OPAQUE, baralpha, borderalpha },
+	[SchemeSel]   = { OPAQUE, baralpha, borderalpha },
+	[SchemeTitle] = { OPAQUE, baralpha, borderalpha },
 };
 
 /* tagging */

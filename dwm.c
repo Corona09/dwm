@@ -892,9 +892,6 @@ drawbar(Monitor *m)
 
 	/* draw status first so it can be overdrawn by tags later */
 	if (m == selmon) { /* status is only drawn on selected monitor */
-		// drw_setscheme(drw, scheme[SchemeNorm]);
-		// tw = TEXTW(stext) - lrpad + 2; /* 2px right padding */
-		// drw_text(drw, m->ww - tw - stw, 0, tw, bh, 0, stext, 0);
 		char *stc = stextc;
 		char *stp = stextc;
 		char tmp;
@@ -944,7 +941,6 @@ drawbar(Monitor *m)
 	drw_setscheme(drw, scheme[SchemeNorm]);
 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
 
-	// if ((w = m->ww - tw - stw - x) > bh) {
 	if (m == selmon) {
 		blw = w, ble = x;
 		w = wbar - wstext - x;
@@ -962,7 +958,6 @@ drawbar(Monitor *m)
 			drw_rect(drw, x, 0, w, bh, 1, 1);
 		}
 	}
-	// drw_map(drw, m->barwin, 0, 0, m->ww, bh);
 	XMoveResizeWindow(dpy, m->barwin, m->wx, m->by, wbar, bh);
 	drw_map(drw, m->barwin, 0, 0, wbar, bh);
 }
