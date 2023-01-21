@@ -24,7 +24,7 @@ case $1 in
 		;;
 	w)
 		# 调整为暖色调
-		xbrightness.sh = eDP1 0.3 --temp
+		xbrightness.sh = eDP1 0.4 --temp
 		;;
 	c)
 		# 调整为冷色调
