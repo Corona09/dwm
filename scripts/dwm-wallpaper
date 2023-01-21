@@ -22,11 +22,13 @@ done
     current_index=0
 }
 
-if [ $# -ge 1 ] && [ "$1" = "prev" ]; then
+if [ $# -ge 1 ]; then
 	if [[ "$1" = "prev" ]]; then
 		next_index=$((current_index+wallpaper_num-1))
 	elif [[ "$1" = "random" ]]; then
-		next_index=$((RANDOM % wallpaper_num))
+		next_index=$RANDOM
+	else
+		next_index=$((current_index+1))
 	fi
 else
 	next_index=$((current_index+1))
