@@ -2754,7 +2754,8 @@ updatesystray(void)
 		XMapRaised(dpy, i->win);
 		w += systrayspacing;
 		i->x = w;
-		XMoveResizeWindow(dpy, i->win, i->x, 0, i->w, i->h);
+		// XMoveResizeWindow(dpy, i->win, i->x, 0, i->w, i->h);
+        XMoveResizeWindow(dpy, i->win, i->x + 3, 0 + 3, MAX(i->w - 4, bh - 4), bh - 4); // 限制过大的图标
 		w += i->w;
 		if (i->mon != m)
 			i->mon = m;
