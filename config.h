@@ -12,7 +12,7 @@ static const int showsystray        = 1;        /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "JetBrainsMono Nerd Font:style=medium:size=13", "monospace:size=13" };
-static const char dmenufont[]       = "JetBrainsMono Nerd Font:style=medium:size=10";
+static const char dmenufont[]       = "JetBrainsMono Nerd Font:style=medium:size=13";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -104,8 +104,8 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, topbar ? NULL : "-b", NULL };
-static const char *dwmlauncher[] = { "dwm-launcher", topbar ? NULL : "-b", NULL };
-static const char *dwmpowermenu[] = { "dwm-powermenu", topbar ? NULL : "-b", NULL };
+static const char *dwmlauncher[] = { "dwm-launcher", "-fn", dmenufont, topbar ? NULL : "-b", NULL };
+static const char *dwmpowermenu[] = { "dwm-powermenu", "-fn", dmenufont, topbar ? NULL : "-b", NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *termfloat[]  = { "st", "-c", "st-float", NULL };
 
