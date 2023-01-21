@@ -3,52 +3,48 @@
 
 /* appearance */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
-static const Gap default_gap        = {.isgap = 1, .realgap = 13, .gappx = 13};
+static const Gap default_gap        = {.isgap = 1, .realgap = 10, .gappx = 10};
 static const unsigned int snap      = 32;       /* snap pixel */
-static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
-static const int showsystray             = 1;   /* 0 means no systray */
-static const char *fonts[]               = { "JetBrainsMono Nerd Font:style=medium:size=13", "monospace:size=13" };
+static const int showsystray        = 1;        /* 0 means no systray */
+static const int showbar            = 1;        /* 0 means no bar */
+static const int topbar             = 1;        /* 0 means bottom bar */
+static const char *fonts[]          = { "JetBrainsMono Nerd Font:style=medium:size=13", "monospace:size=13" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_gray5[]       = "#2b2c30";
-static const char col_gray6[]       = "#888888";
 static const char col_cyan[]        = "#005577";
+static const char col_dust_red6[]   = "#f5222d";
+static const char col_valcano6[]    = "#fa541c";
+static const char col_daybreak8[]   = "#003eb3";
+static const char col_magenta10[]   = "#520339";
+static const char col_black[]       = "#000000";
 static const char col1[]            = "#ffffff";
 static const char col2[]            = "#ffffff";
 static const char col3[]            = "#ffffff";
 static const char col4[]            = "#ffffff";
 static const char col5[]            = "#ffffff";
 static const char col6[]            = "#ffffff";
-static const char col_dust_red6[]   = "#f5222d";
-static const char col_daybreak8[]   = "#003eb3";
-static const unsigned int baralpha = 245; // 0-255
-static const unsigned int borderalpha = OPAQUE;
+
+enum { SchemeNorm, SchemeSel, SchemeTitle,
+	   SchemeCol1, SchemeCol2, SchemeCol3,
+	   SchemeCol4, SchemeCol5, SchemeCol6,  }; /* color schemes */
 
 static const char *colors[][3]      = {
-	/*                  fg          bg          border   */
-	[SchemeNorm]    = { col_gray3 , col_gray5 , col_gray2     } ,
-	[SchemeSel]     = { col_gray4 , col_cyan  , col_daybreak8 } ,
-	[SchemeTitle]   = { col_gray3 , col_gray5 , col_gray2     } ,
-    [SchemeSystray] = { col_gray3 , col_gray5 , col_gray2     },
-	[SchemeCol1]    = { col1      , col_gray1 , col_gray2     } ,
-	[SchemeCol2]    = { col2      , col_gray1 , col_gray2     } ,
-	[SchemeCol3]    = { col3      , col_gray1 , col_gray2     } ,
-	[SchemeCol4]    = { col4      , col_gray1 , col_gray2     } ,
-	[SchemeCol5]    = { col5      , col_gray1 , col_gray2     } ,
-	[SchemeCol6]    = { col6      , col_gray1 , col_gray2     } ,
-};
-static const unsigned int alphas[][3]      = {
-	/*                fg      bg        border     */
-	[SchemeNorm]  = { OPAQUE, baralpha, borderalpha },
-	[SchemeSel]   = { OPAQUE, baralpha, borderalpha },
-	[SchemeTitle] = { OPAQUE, baralpha, borderalpha },
+	/*                fg          bg          border   */
+	[SchemeNorm]  = { col_gray3 , col_gray1 , col_gray2     } ,
+	[SchemeSel]   = { col_gray4 , col_cyan  , col_valcano6  } ,
+	[SchemeTitle] = { col_gray3 , col_gray1 , col_gray2     } ,
+	[SchemeCol1]  = { col1      , col_gray1 , col_gray2     } ,
+	[SchemeCol2]  = { col2      , col_gray1 , col_gray2     } ,
+	[SchemeCol3]  = { col3      , col_gray1 , col_gray2     } ,
+	[SchemeCol4]  = { col4      , col_gray1 , col_gray2     } ,
+	[SchemeCol5]  = { col5      , col_gray1 , col_gray2     } ,
+	[SchemeCol6]  = { col6      , col_gray1 , col_gray2     } ,
 };
 
 /* tagging */
@@ -86,9 +82,9 @@ static const Layout layouts[] = {
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 	{ "{=}",      magicgrid },
+
 };
 
-/* key definitions */
 #define MODKEY Mod1Mask
 #define AltMask Mod1Mask
 #define CtrlMask ControlMask
@@ -139,11 +135,11 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[4]} },
-	{ MODKEY|ShiftMask,             XK_t,      setlayoutall,   {.v = &layouts[0]} },
-	{ MODKEY|ShiftMask,             XK_y,      setlayoutall,   {.v = &layouts[1]} },
-	{ MODKEY|ShiftMask,             XK_f,      setlayoutall,   {.v = &layouts[2]} },
-	{ MODKEY|ShiftMask,             XK_m,      setlayoutall,   {.v = &layouts[3]} },
-	{ MODKEY|ShiftMask,             XK_g,      setlayoutall,   {.v = &layouts[4]} },
+	// { MODKEY|ShiftMask,             XK_t,      setlayoutall,   {.v = &layouts[0]} },
+	// { MODKEY|ShiftMask,             XK_y,      setlayoutall,   {.v = &layouts[1]} },
+	// { MODKEY|ShiftMask,             XK_f,      setlayoutall,   {.v = &layouts[2]} },
+	// { MODKEY|ShiftMask,             XK_m,      setlayoutall,   {.v = &layouts[3]} },
+	// { MODKEY|ShiftMask,             XK_g,      setlayoutall,   {.v = &layouts[4]} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
@@ -164,10 +160,6 @@ static const Key keys[] = {
 
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	// { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	// { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	// { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	// { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	// { MODKEY,                       XK_minus,  setgaps,        {.i = -5 } },
 	// { MODKEY,                       XK_equal,  setgaps,        {.i = +5 } },
 	// { MODKEY|ShiftMask,             XK_minus,  setgaps,        {.i = GAP_RESET } },
@@ -201,8 +193,6 @@ static const Button buttons[] = {
 void
 setlayoutex(const Arg *arg)
 {
-	if (!arg || !arg->i || arg->i >= LENGTH(layouts) || arg->i < 0)
-		return;
 	setlayout(&((Arg) { .v = &layouts[arg->i] }));
 }
 

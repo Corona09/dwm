@@ -4,14 +4,11 @@ Corona 配置的 dwm
 
 ## 打上了一些 patch
 
-- alpha-systray
+- systray
 - alwayscenter
 - autostart
-- dmenumatchtop
 - fullgaps
-- quitprompt
 - titlecolor
-- pertag
 - dwmblocks
 - dwmc
 
