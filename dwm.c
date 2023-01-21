@@ -324,13 +324,13 @@ static void (*handler[LASTEvent]) (XEvent *) = {
 	[ConfigureRequest] = configurerequest,
 	[ConfigureNotify] = configurenotify,
 	[DestroyNotify] = destroynotify,
-	[EnterNotify] = enternotify,
+	/* [EnterNotify] = enternotify, */
 	[Expose] = expose,
 	[FocusIn] = focusin,
 	[KeyPress] = keypress,
 	[MappingNotify] = mappingnotify,
 	[MapRequest] = maprequest,
-	[MotionNotify] = motionnotify,
+	/* [MotionNotify] = motionnotify, */
 	[PropertyNotify] = propertynotify,
 	[ResizeRequest] = resizerequest,
 	[UnmapNotify] = unmapnotify
@@ -512,7 +512,8 @@ buttonpress(XEvent *e)
 	XButtonPressedEvent *ev = &e->xbutton;
 
 	/* focus monitor if necessary */
-	if ((m = wintomon(ev->window)) && m != selmon) {
+	/* 只有鼠标点击时才会聚焦, 滑轮滚动不聚焦 */
+	if ((m = wintomon(ev->window)) && m != selmon && (ev->button != Button4 && ev->button != Button5)) {
 		unfocus(selmon->sel, 1);
 		selmon = m;
 		focus(NULL);
@@ -535,8 +536,10 @@ buttonpress(XEvent *e)
 		} else
 			return;
 	} else if ((c = wintoclient(ev->window))) {
-		focus(c);
-		restack(selmon);
+		if (ev->button != Button4 && ev->button != Button5) {
+			focus(c);
+			restack(selmon);
+		}
 		XAllowEvents(dpy, ReplayPointer, CurrentTime);
 		click = ClkClientWin;
 	} else
@@ -959,25 +962,6 @@ drawbars(void)
 
 	for (m = mons; m; m = m->next)
 		drawbar(m);
-}
-
-void
-enternotify(XEvent *e)
-{
-	Client *c;
-	Monitor *m;
-	XCrossingEvent *ev = &e->xcrossing;
-
-	if ((ev->mode != NotifyNormal || ev->detail == NotifyInferior) && ev->window != root)
-		return;
-	c = wintoclient(ev->window);
-	m = c ? c->mon : wintomon(ev->window);
-	if (m != selmon) {
-		unfocus(selmon->sel, 1);
-		selmon = m;
-	} else if (!c || c == selmon->sel)
-		return;
-	focus(c);
 }
 
 void
@@ -1517,30 +1501,6 @@ monocle(Monitor *m)
 		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
 	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
 		resize(c, m->wx + m->gap->gappx, m->wy + m->gap->gappx, m->ww - 2 * c->bw - 2 * m->gap->gappx, m->wh - 2 * c->bw - 2 * m->gap->gappx, 0);
-}
-
-void
-motionnotify(XEvent *e)
-{
-	static Monitor *mon = NULL;
-	int x;
-	Monitor *m;
-	XMotionEvent *ev = &e->xmotion;
-
-	if (ev->window == root) {
-		if ((m = recttomon(ev->x_root, ev->y_root, 1, 1)) != mon && mon) {
-			unfocus(selmon->sel, 1);
-			selmon = m;
-			focus(NULL);
-		}
-		mon = m;
-	} else if (ev->window == selmon->barwin && (x = wsbar - RSPAD - ev->x) > 0
-											&& (x -= wstext - LSPAD - RSPAD) <= 0)
-		updatedwmblockssig(x);
-	else if (selmon->statushandcursor) {
-		selmon->statushandcursor = 0;
-		XDefineCursor(dpy, selmon->barwin, cursor[CurNormal]->cursor);
-	}
 }
 
 void
