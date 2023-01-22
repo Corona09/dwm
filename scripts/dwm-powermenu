@@ -1,32 +1,41 @@
 #!/usr/bin/env bash
 
-opt_cancal="cancel"
-opt_poweroff="poweroff"
-opt_reboot="reboot"
-opt_logout="logout"
-option=$(echo -e "$opt_cancal\n$opt_poweroff\n$opt_reboot\n$opt_logout" | dmenu "$@" -p "POWERMENU")
+x=1200
+y=36
+z=224
+x1=1200
+y1=36
+z1=224
+font="JetBrainsMono Nerd Font:style=medium:size=13"
+
+opt_cancal="取消"
+opt_confirm="确认"
+opt_poweroff="关机"
+opt_reboot="重启"
+opt_logout="注销"
+option=$(echo -e "$opt_cancal\n$opt_poweroff\n$opt_reboot\n$opt_logout" | dmenu -fn "$font" -x $x -y $y -z $z -l 4 -p "POWERMENU")
 
 confirm() {
 	event="$1"
-	result=$(echo -e "yes\nno" | dmenu "$2" "$3" -sb red -p "Sure to $event?")
+	result=$(echo -e "$opt_confirm\n$opt_cancal" | dmenu -fn "$font" -x $x1 -y $y1 -z $z1 -l 2 -sb red -p "确认$event?")
 	echo $result
 }
 
 if [[ "$option" = "$opt_cancal" ]]; then
 	exit 0
 elif [[ "$option" = "$opt_poweroff" ]]; then
-	c=$(confirm "$option" "$@")
-	if [[ "$c" = "yes" ]]; then
+	c=$(confirm "$option")
+	if [[ "$c" = "$opt_confirm" ]]; then
 		poweroff
 	fi
 elif [[ "$option" = "$opt_reboot" ]]; then
-	c=$(confirm "$option" "$@")
-	if [[ "$c" = "yes" ]]; then
+	c=$(confirm "$option")
+	if [[ "$c" = "$opt_confirm" ]]; then
 		reboot
 	fi
 elif [[ "$option" = "$opt_logout" ]]; then
-	c=$(confirm "$option" "$@")
-	if [[ "$c" = "yes" ]]; then
+	c=$(confirm "$option")
+	if [[ "$c" = "$opt_confirm" ]]; then
 		killall -q dwm
 	fi
 else
