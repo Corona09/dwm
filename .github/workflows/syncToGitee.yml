@@ -14,5 +14,5 @@ jobs:
         dst: 'gitee/corona09'
         dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
         dst_token:  ${{ secrets.GITEE_TOKEN }}
-        static_list: "SunnyVim"
+        static_list: "dwm"
         force_update: true
