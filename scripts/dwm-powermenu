@@ -8,11 +8,11 @@ y1=36
 z1=224
 font="JetBrainsMono Nerd Font:style=medium:size=13"
 
-opt_cancal="取消"
-opt_confirm="确认"
-opt_poweroff="关机"
-opt_reboot="重启"
-opt_logout="注销"
+opt_cancal="取消(n)"
+opt_confirm="确认(y)"
+opt_poweroff="关机(p)"
+opt_reboot="重启(r)"
+opt_logout="注销(l)"
 option=$(echo -e "$opt_cancal\n$opt_poweroff\n$opt_reboot\n$opt_logout" | dmenu -fn "$font" -x $x -y $y -z $z -l 4 -p "POWERMENU")
 
 confirm() {
