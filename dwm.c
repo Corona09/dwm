@@ -306,6 +306,7 @@ static const char autostartblocksh[] = "autostart_blocking.sh";
 static const char autostartsh[] = "autostart.sh";
 static const char broken[] = "broken";
 static const char dwmdir[] = "dwm";
+static char dwmblockslockfile[64];
 static const char localshare[] = ".local/share";
 static char stextc[STATUSLENGTH];
 static char stexts[STATUSLENGTH];
@@ -2084,6 +2085,11 @@ setup(void)
 	XSetWindowAttributes wa;
 	Atom utf8string;
 
+	/* 初始化 dwmblocks pid 文件 */
+	// strcpy(char *, const char *)
+	strcpy(dwmblockslockfile, getenv("HOME"));
+	strncat(dwmblockslockfile, "/.local/dwmblocks/dwmblocks.pid", 63-strlen(dwmblockslockfile));
+
 	/* clean up any zombies immediately */
 	sigchld(0);
 
@@ -2215,7 +2221,8 @@ sigdwmblocks(const Arg *arg)
 		close(fd);
 		fl.l_type = F_WRLCK;
 	}
-	if ((fd = open(DWMBLOCKSLOCKFILE, O_RDONLY | O_CLOEXEC)) == -1)
+	// if ((fd = open(DWMBLOCKSLOCKFILE, O_RDONLY | O_CLOEXEC)) == -1)
+	if ((fd = open(dwmblockslockfile, O_RDONLY | O_CLOEXEC)) == -1)
 			return;
 	if (fcntl(fd, F_GETLK, &fl) == -1 || fl.l_type != F_WRLCK) {
 		close(fd);
