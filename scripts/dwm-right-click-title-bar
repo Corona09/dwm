@@ -6,16 +6,18 @@
 
 font="JetBrainsMono Nerd Font:style=medium:size=13"
 
-options="取消\n关闭窗口\n移动窗口"
+options="取消\n关闭窗口\n移动窗口\n主从切换"
 
-chosen=$(echo -e "$options" | dmenu $@ -fn "$font" -c -l 3)
+chosen=$(echo -e "$options" | dmenu $@ -fn "$font" -c -l 4 -p "菜单")
 
 if [[ "$chosen" = "关闭窗口" ]]; then
 	dwmc killclient
 elif [[ "$chosen" = "移动窗口" ]]; then
 	tags="取消\n1\n2\n3\n4\n5\n6\n7\n8\n9\n"
-	tag=$(echo -e "$tags" | dmenu $@ -fn "$font" -c -l 10)
+	tag=$(echo -e "$tags" | dmenu $@ -fn "$font" -c -l 10 -p "选择标签")
 	if [ "$tag" != "" ] && [ "$tag" != "取消" ] && [ $tag -ge 1 ] && [ $tag -le 9 ]; then
 		dwmc tagex $((tag-1))
 	fi
+elif [[ "$chosen" = "主从切换" ]]; then
+	dwmc zoom
 fi
