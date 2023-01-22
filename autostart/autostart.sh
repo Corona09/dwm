@@ -17,14 +17,14 @@ picom &
 
 dunst &
 
-ps -ef -u $USER | grep "/usr/bin/kwalletd5" | grep -v grep | awk '{print $2}' | xargs kill 2>/dev/null
+ps -ef | grep "/usr/bin/kwalletd5" | grep -v grep | awk '{print $2}' | xargs kill 2>/dev/null
 nm-applet &
 
 conky &
 
 fcitx5 &
 
-ps -ef -u $USER | grep "dwmblocks" | grep -v grep | awk '{print $2}' | xargs kill 2>/dev/null
+ps -ef | grep "dwmblocks" | grep -v grep | awk '{print $2}' | xargs kill 2>/dev/null
 dwmblocks 2>>$HOME/.dwmblocks.log &
 
 nextcloud &
