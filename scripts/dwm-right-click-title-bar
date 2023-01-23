@@ -13,9 +13,10 @@ opt_cancel="取消"
 opt_killclient="关闭窗口"
 opt_tagex="更换窗口标签"
 opt_zoom="主从窗口切换"
-options="$opt_cancel\n$opt_killclient\n$opt_tagex\n$opt_zoom"
+opt_overview="窗口概览"
+options="$opt_cancel\n$opt_killclient\n$opt_tagex\n$opt_zoom\n$opt_overview"
 
-chosen=$(echo -e "$options" | dmenu -fn "$font" -x $x -y $y -z $z -l 4 -p "菜单")
+chosen=$(echo -e "$options" | dmenu -fn "$font" -x $x -y $y -z $z -l 5 -p "菜单")
 
 if [[ "$chosen" = "$opt_killclient" ]]; then
 	dwmc killclient
@@ -27,4 +28,7 @@ elif [[ "$chosen" = "$opt_tagex" ]]; then
 	fi
 elif [[ "$chosen" = "$opt_zoom" ]]; then
 	dwmc zoom
+elif [[ "$chosen" = "$opt_overview" ]]; then
+	dwmc viewall
+	dwmc setlayout 4
 fi
