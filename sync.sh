@@ -17,7 +17,9 @@ case $1 in
 		cp -f autostart/* $HOME/.dwm/
 		chmod +x $HOME/.dwm/autostart.sh
 
-		cp -f files/dmenu-applications $HOME/.cache/dmenu-applications
+		[[ -f $HOME/.cache/dmenu-applications ]] || {
+			cp -f files/dmenu-applications $HOME/.cache/dmenu-applications
+		}
 
 		cp -f scripts/xbrightness.sh $HOME/.local/bin/xbrightness.sh
 		chmod +x $HOME/.local/bin/xbrightness.sh
@@ -29,7 +31,6 @@ case $1 in
 	clean)
 		rm -rf $HOME/.dwm
 		rm -f $HOME/.local/bin/dwm-*
-		rm $HOME/.cache/dmenu-applications
 		rm $HOME/.local/bin/xbrightness.sh
 		rm $HOME/.local/bin/xgetcolortemp.sh
 		;;
