@@ -9,12 +9,12 @@ mkdir -p $dir
 
 name="screenshot-`date \"+%Y-%m-%d_%H-%M-%S\"`.png"
 
+# 成功截图后将截图保存路径写入剪贴板
 case $1 in
 	select)
-		import "$dir/$name" && notify "Saved as $dir/$name"
+		import "$dir/$name" && notify "Saved as $dir/$name" && echo "$dir/$name" | xclip -selection clipboard -i
 		;;
 	*)
-		import -window root "$dir/$name" && notify "Saved as $dir/$name"
+		import -window root "$dir/$name" && notify "Saved as $dir/$name" && echo "$dir/$name" | xclip -selection clipboard -i
 		;;
 esac
-

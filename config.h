@@ -38,9 +38,9 @@ enum { SchemeNorm, SchemeSel, SchemeTitle,
 
 static const char *colors[][3]      = {
 	/*                fg          bg          border   */
-	[SchemeNorm]  = { col_gray3 , col_dracula , col_gray2     } ,
+	[SchemeNorm]  = { col_gray3 , col_gray1 , col_gray2     } ,
 	[SchemeSel]   = { col_gray4 , col_cyan6 , col_valcano6  } ,
-	[SchemeTitle] = { col_gray3 , col_dracula , col_gray2     } ,
+	[SchemeTitle] = { col_gray3 , col_gray1 , col_gray2     } ,
 	[SchemeCol1]  = { col1      , col_gray1 , col_gray2     } ,
 	[SchemeCol2]  = { col2      , col_gray1 , col_gray2     } ,
 	[SchemeCol3]  = { col3      , col_gray1 , col_gray2     } ,
