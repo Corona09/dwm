@@ -11,24 +11,33 @@ font="JetBrainsMono Nerd Font:style=medium:size=13"
 
 opt_cancel="取消"
 opt_killclient="关闭窗口"
-opt_tagex="更换窗口标签"
+opt_tagex="更换窗口工作区"
 opt_zoom="主从窗口切换"
 opt_overview="窗口概览"
 options="$opt_cancel\n$opt_killclient\n$opt_tagex\n$opt_zoom\n$opt_overview"
 
 chosen=$(echo -e "$options" | dmenu -fn "$font" -x $x -y $y -z $z -l 5 -p "菜单")
 
-if [[ "$chosen" = "$opt_killclient" ]]; then
+if [[ "$chosen" == "$opt_killclient" ]]; then
 	dwmc killclient
-elif [[ "$chosen" = "$opt_tagex" ]]; then
-	tags="$opt_cancel\n1\n2\n3\n4\n5\n6\n7\n8\n9\n"
-	tag=$(echo -e "$tags" | dmenu -fn "$font" -x $x -y $y -z $z -l 10 -p "选择标签")
-	if [ "$tag" != "" ] && [ "$tag" != "$opt_cancel" ] && [ $tag -ge 1 ] && [ $tag -le 9 ]; then
-		dwmc tagex $((tag-1))
+elif [[ "$chosen" == "$opt_tagex" ]]; then
+	tagall="所有工作区"
+	tags="$opt_cancel\n1\n2\n3\n4\n5\n6\n7\n8\n9\n$tagall"
+	tag=$(echo -e "$tags" | dmenu -fn "$font" -x $x -y $y -z $z -l 11 -p "将窗口移到")
+	if [ "$tag" == "$tagall" ]; then
+		dwmc tagex 0
+	else
+		case $tag in
+			1|2|3|4|5|6|7|8|9)
+				dwmc tagex $tag
+				;;
+			*)
+				;;
+		esac
 	fi
-elif [[ "$chosen" = "$opt_zoom" ]]; then
+elif [[ "$chosen" == "$opt_zoom" ]]; then
 	dwmc zoom
-elif [[ "$chosen" = "$opt_overview" ]]; then
+elif [[ "$chosen" == "$opt_overview" ]]; then
 	dwmc viewall
 	dwmc setlayout 4
 fi

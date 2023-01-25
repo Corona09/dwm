@@ -223,7 +223,15 @@ toggleviewex(const Arg *arg)
 void
 tagex(const Arg *arg)
 {
-	tag(&((Arg) { .ui = 1 << arg->ui }));
+	if (!arg)
+		return;
+	if (!arg->ui) {
+		tag(&((Arg) { .ui = ~0 }));
+	} else if (arg->ui >=1 && arg->ui <= 9) {
+		tag(&((Arg) { .ui = 1 << (arg->ui - 1) }));
+	} else {
+		return;
+	}
 }
 
 void
