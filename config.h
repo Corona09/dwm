@@ -57,21 +57,23 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class                   instance    title          tags mask     isfloating   monitor */
-	{ "Gimp"                 , NULL,       NULL         , 0      ,      1 ,          -1 } ,
-	{ "fcitx5-config-qt"     , NULL,       NULL         , 0      ,      1 ,          -1 } ,
-	{ "Nm-connection-editor" , NULL,       NULL         , 0      ,      1 ,          -1 } ,
-	{ "QQ"                   , NULL,       "图片查看器" , 0      ,      1 ,          -1 } ,
-	{ "st-float"             , "st",       NULL         , 0      ,      1 ,          -1 } ,
-	{ "Pavucontrol"          , NULL,       NULL         , 0      ,      1 ,          -1 } ,
-	{ "firefox"              , "Places",   NULL         , 0      ,      1 ,          -1 } ,
-	{ "falkon"               , "falkon",   NULL         , 0      ,      1 ,          -1 } ,
-	{ "Falkon"     , "Browsing Library",   NULL         , 0      ,      1 ,          -1 } ,
-	{ "netease-cloud-music"  , NULL,       NULL         , 1 << 7 ,      0 ,          -1 } ,
-	{ "mpv"                  , NULL,       NULL         , 1 << 7 ,      0 ,          -1 } ,
-	{ "vlc"                  , NULL,       NULL         , 1 << 7 ,      0 ,          -1 } ,
-	{ "Zotero"               , NULL,       NULL         , 1 << 8 ,      0 ,          -1 } ,
-	{ "KeePassXC"            , NULL,       NULL         , 1 << 8 ,      0 ,          -1 } ,
+	/* class                   instance             title          tags mask     isfloating   monitor */
+	{ "Gimp"                 , NULL               , NULL         , 0           , 1            , -1 } ,
+	{ "fcitx5-config-qt"     , NULL               , NULL         , 0           , 1            , -1 } ,
+	{ "Nm-connection-editor" , NULL               , NULL         , 0           , 1            , -1 } ,
+	{ "QQ"                   , NULL               , "图片查看器" , 0           , 1            , -1 } ,
+	{ "st-float"             , "st"               , NULL         , 0           , 1            , -1 } ,
+	{ "Pavucontrol"          , NULL               , NULL         , 0           , 1            , -1 } ,
+	{ "firefox"              , "Places"           , NULL         , 0           , 1            , -1 } ,
+	{ "falkon"               , "falkon"           , NULL         , 0           , 1            , -1 } ,
+	{ "Falkon"               , "Browsing Library" , NULL         , 0           , 1            , -1 } ,
+	{ "Zotero"               , NULL               , NULL         , 1 << 5      , 0            , -1 } ,
+	{ "ktorrent"             , NULL               , NULL         , 1 << 6      , 0            , -1 } ,
+	{ "netease-cloud-music"  , NULL               , NULL         , 1 << 7      , 0            , -1 } ,
+	{ "elisa"                , NULL               , NULL         , 1 << 7      , 0            , -1 } ,
+	{ "mpv"                  , NULL               , NULL         , 1 << 7      , 0            , -1 } ,
+	{ "vlc"                  , NULL               , NULL         , 1 << 7      , 0            , -1 } ,
+	{ "KeePassXC"            , NULL               , NULL         , 1 << 8      , 0            , -1 } ,
 };
 
 /* layout(s) */
