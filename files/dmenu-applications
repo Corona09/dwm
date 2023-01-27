@@ -2,7 +2,6 @@ akregator
 ark
 code
 dolphin
-elisa
 falkon
 firefox
 gwenview
@@ -21,7 +20,7 @@ nextcloud
 nm-applet
 nm-connection-editor
 okular
-pamac
+pamac-manager
 pavucontrol
 qt5ct
 seahorse

@@ -71,6 +71,7 @@ static const Rule rules[] = {
 	{ "ktorrent"             , NULL               , NULL         , 1 << 6      , 0            , -1 } ,
 	{ "netease-cloud-music"  , NULL               , NULL         , 1 << 7      , 0            , -1 } ,
 	{ "elisa"                , NULL               , NULL         , 1 << 7      , 0            , -1 } ,
+	{ "cantata"              , NULL               , NULL         , 1 << 7      , 0            , -1 } ,
 	{ "mpv"                  , NULL               , NULL         , 1 << 7      , 0            , -1 } ,
 	{ "vlc"                  , NULL               , NULL         , 1 << 7      , 0            , -1 } ,
 	{ "KeePassXC"            , NULL               , NULL         , 1 << 8      , 0            , -1 } ,
