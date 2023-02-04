@@ -7,11 +7,6 @@ fi
 
 case $1 in
 	install)
-		mkdir -p $HOME/.local/bin
-		rm -rf $HOME/.local/bin/dwm-*
-		cp -f scripts/dwm* $HOME/.local/bin/
-		chmod +x $HOME/.local/bin/dwm-*
-
 		rm -rf $HOME/.dwm
 		mkdir -p $HOME/.dwm
 		cp -f autostart/* $HOME/.dwm/
@@ -20,17 +15,9 @@ case $1 in
 		[[ -f $HOME/.cache/dmenu-applications ]] || {
 			cp -f files/dmenu-applications $HOME/.cache/dmenu-applications
 		}
-
-		cp -f scripts/xbrightness.sh $HOME/.local/bin/xbrightness.sh
-		chmod +x $HOME/.local/bin/xbrightness.sh
-
-		cp -f scripts/xgetcolortemp.sh $HOME/.local/bin/xgetcolortemp.sh
-		chmod +x $HOME/.local/bin/xgetcolortemp.sh
-
 		;;
 	clean)
 		rm -rf $HOME/.dwm
-		rm -f $HOME/.local/bin/dwm-*
 		rm $HOME/.local/bin/xbrightness.sh
 		rm $HOME/.local/bin/xgetcolortemp.sh
 		;;

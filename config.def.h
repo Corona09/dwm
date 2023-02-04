@@ -107,6 +107,7 @@ static const Layout layouts[] = {
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define PATH(name) "<path to the folder containing block scripts>/"name
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -153,18 +154,18 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ AltMask,                      XK_space,  spawn,          {.v = dwmlauncher } },
 	{ SuperMask,                    XK_space,  spawn,          {.v = dmenucmd } },
-	{ AltMask|ShiftMask,            XK_s,      spawn,          SHCMD("dwm-screenshot fullscreen") },
-	{ SuperMask|ShiftMask,          XK_s,      spawn,          SHCMD("dwm-screenshot select") },
+	{ AltMask|ShiftMask,            XK_s,      spawn,          SHCMD(PATH("dwm-screenshot fullscreen")) },
+	{ SuperMask|ShiftMask,          XK_s,      spawn,          SHCMD(PATH("dwm-screenshot select")) },
 	{ AltMask|ShiftMask,            XK_q,      spawn,          {.v = dwmpowermenu} },
 
 	/* 一些功能键 */
-	{ 0,       XF86XK_AudioMute,		 spawn,      SHCMD("dwm-volume t") },
-	{ 0,       XF86XK_AudioRaiseVolume,  spawn,      SHCMD("dwm-volume u") },
-	{ 0,       XF86XK_AudioLowerVolume,  spawn,      SHCMD("dwm-volume d") },
-    { 0,       XF86XK_MonBrightnessUp,   spawn,      SHCMD("dwm-backlight u") },
-    { 0,       XF86XK_MonBrightnessDown, spawn,      SHCMD("dwm-backlight d") },
-	{ AltMask, XF86XK_MonBrightnessUp,   spawn,      SHCMD("dwm-backlight w") }, /* 切换暖色调 */
-	{ AltMask, XF86XK_MonBrightnessDown, spawn,      SHCMD("dwm-backlight c") }, /* 切换冷色调 */
+	{ 0,       XF86XK_AudioMute,		 spawn,      SHCMD(PATH("dwm-volume t")) },
+	{ 0,       XF86XK_AudioRaiseVolume,  spawn,      SHCMD(PATH("dwm-volume u")) },
+	{ 0,       XF86XK_AudioLowerVolume,  spawn,      SHCMD(PATH("dwm-volume d")) },
+    { 0,       XF86XK_MonBrightnessUp,   spawn,      SHCMD(PATH("dwm-backlight u")) },
+    { 0,       XF86XK_MonBrightnessDown, spawn,      SHCMD(PATH("dwm-backlight d")) },
+	{ AltMask, XF86XK_MonBrightnessUp,   spawn,      SHCMD(PATH("dwm-backlight w")) }, /* 切换暖色调 */
+	{ AltMask, XF86XK_MonBrightnessDown, spawn,      SHCMD(PATH("dwm-backlight c")) }, /* 切换冷色调 */
 
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },

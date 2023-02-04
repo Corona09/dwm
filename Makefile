@@ -19,14 +19,14 @@ options:
 
 ${OBJ}: config.h config.mk
 
-config.h:
-	cp config.def.h $@
+config.h: config.def.h
+	sed 's=<path to the folder containing block scripts>=${EFSCRIPTS}=' config.def.h >$@
 
 dwm: ${OBJ}
 	${CC} -o $@ ${OBJ} ${LDFLAGS}
 
 clean:
-	rm -f dwm ${OBJ} dwm-${VERSION}.tar.gz *.orig *.rej
+	rm -f dwm ${OBJ} dwm-${VERSION}.tar.gz *.orig *.rej config.h
 
 dist: clean
 	mkdir -p dwm-${VERSION}
@@ -45,6 +45,8 @@ install: all
 	chmod 644 ${DESTDIR}${MANPREFIX}/man1/dwm.1
 	mkdir -p /usr/share/xsessions
 	cp -f dwm.desktop /usr/share/xsessions/dwm.desktop
+	cp -f scripts/* ${EFSCRIPTS}/
+	chmod +x ${EFSCRIPTS}/*
 
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
