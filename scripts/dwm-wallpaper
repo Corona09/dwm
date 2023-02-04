@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 record_file=$HOME/.current_wallpaper
 [[ -f $record_file ]] || touch $record_file

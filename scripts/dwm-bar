@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/env bash
 
 get_battery() {
 	battery=`acpi | awk -F ' ' '{print $4}' | awk -F ',' '{print $1}' | awk -F '%' '{print $1}'`

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # 右键点击 dwm 标题栏的操作
 # 1. 关闭窗口
