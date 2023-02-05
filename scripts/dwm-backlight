@@ -35,4 +35,6 @@ case $1 in
 	*)  ;;
 esac
 
+echo "$(brightnessctl g)" > $HOME/.brightness
+
 sigdwmblocks 2
