@@ -4,21 +4,23 @@ notify() {
 	notify-send -t 1500 "$1"
 }
 
-step=2
-min_brightness=2
-current_brightness=`xbacklight -get`
+min_brightness=10
+max_value=$(brightnessctl m)
+step=$(echo "2*$max_value/100"|bc)
+current_brightness=$(brightnessctl g)
 
 case $1 in
 	u)
-		xbacklight -inc $step
+		brightnessctl -q s "$step+"
 		;;
 	d)
 		target_brightness=`echo "$current_brightness-$step" | bc`
 
 		if [[ `echo "$target_brightness >= $min_brightness" | bc` -eq 1 ]]; then
-			xbacklight -dec $step
+			brightnessctl -q s "$step-"
 		else
-			xbacklight -set $min_brightness
+			# xbacklight -set $min_brightness
+			brightnessctl -q s "$min_brightness"
 			notify "🚫  亮度已经足够低了!"
 		fi
 		;;
