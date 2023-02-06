@@ -6,7 +6,7 @@ z=224
 x1=1200
 y1=36
 z1=224
-font="JetBrainsMono Nerd Font:style=medium:size=13"
+font="Noto Sans Mono CJK SC:style=medium:size=13"
 
 opt_cancal="取消(n)"
 opt_confirm="确认(y)"

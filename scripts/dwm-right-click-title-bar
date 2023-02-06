@@ -7,7 +7,7 @@
 x=500
 y=36
 z=255
-font="JetBrainsMono Nerd Font:style=medium:size=13"
+font="Noto Sans Mono CJK SC:style=medium:size=13"
 
 opt_cancel="取消"
 opt_killclient="关闭窗口"
