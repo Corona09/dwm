@@ -157,7 +157,7 @@ static const Key keys[] = {
 	{ AltMask|ShiftMask,            XK_s,      spawn,          SHCMD(PATH("dwm-screenshot fullscreen")) },
 	{ SuperMask|ShiftMask,          XK_s,      spawn,          SHCMD(PATH("dwm-screenshot select")) },
 	{ MODKEY,                       XK_w,      spawn,          SHCMD(PATH("dwm-wallpaper")) },
-	{ MODKEY|ShiftMask              XK_w,      spawn,          SHCMD(PATH("dwm-wallpaper prev")) },
+	{ MODKEY|ShiftMask,             XK_w,      spawn,          SHCMD(PATH("dwm-wallpaper prev")) },
 	{ MODKEY|ShiftMask,             XK_q,      spawn,          {.v = dwmpowermenu} },
 
 	/* 一些功能键 */
