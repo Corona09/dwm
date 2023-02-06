@@ -2,11 +2,6 @@
 
 # 一次性程序
 
-dt=[$(date "+%Y/%m/%d %H:%M:%S")]
-log=$HOME/.dwm-autostart.log
-
-echo -e "$dt\n" >> $log
-
 [[ -f $HOME/.fehbg ]] && {
 	$HOME/.fehbg
 } || {
@@ -33,4 +28,4 @@ dwmblocks 2>>$HOME/.dwmblocks.log &
 
 nextcloud &
 
-echo -e "\n---\n" >> $log
+blueman-tray &

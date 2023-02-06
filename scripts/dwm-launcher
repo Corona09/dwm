@@ -2,8 +2,12 @@
 
 applist="$HOME/.cache/dmenu-applications"
 
+[[ -f $applist ]] || {
+    applist="$HOME/.cache/dmenu-applications-default"
+}
+
 [[ -f "$applist" ]] && {
-	cat "$applist" | dmenu "$@" | ${SHELL:-"/bin/sh"} &
+    cat "$applist" | dmenu "$@" | ${SHELL:-"/bin/sh"} &
 } || {
-	dmenu_run "$@"
+    dmenu_run "$@"
 }
