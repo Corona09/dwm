@@ -130,7 +130,7 @@ static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termfloat } },
-	{ CAMask,                       XK_t,      spawn,          SHCMD("konsole") },
+	{ CAMask,                       XK_t,      spawn,          SHCMD("st") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -156,7 +156,9 @@ static const Key keys[] = {
 	{ SuperMask,                    XK_space,  spawn,          {.v = dmenucmd } },
 	{ AltMask|ShiftMask,            XK_s,      spawn,          SHCMD(PATH("dwm-screenshot fullscreen")) },
 	{ SuperMask|ShiftMask,          XK_s,      spawn,          SHCMD(PATH("dwm-screenshot select")) },
-	{ AltMask|ShiftMask,            XK_q,      spawn,          {.v = dwmpowermenu} },
+	{ MODKEY,                       XK_w,      spawn,          SHCMD(PATH("dwm-wallpaper")) },
+	{ MODKEY|ShiftMask              XK_w,      spawn,          SHCMD(PATH("dwm-wallpaper prev")) },
+	{ MODKEY|ShiftMask,             XK_q,      spawn,          {.v = dwmpowermenu} },
 
 	/* 一些功能键 */
 	{ 0,       XF86XK_AudioMute,		 spawn,      SHCMD(PATH("dwm-volume t")) },
@@ -169,10 +171,10 @@ static const Key keys[] = {
 
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	// { MODKEY,                       XK_minus,  setgaps,        {.i = -5 } },
-	// { MODKEY,                       XK_equal,  setgaps,        {.i = +5 } },
-	// { MODKEY|ShiftMask,             XK_minus,  setgaps,        {.i = GAP_RESET } },
-	// { MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = GAP_TOGGLE} },
+	{ MODKEY,                       XK_minus,  setgaps,        {.i = -5 } },
+	{ MODKEY,                       XK_equal,  setgaps,        {.i = +5 } },
+	{ MODKEY|ShiftMask,             XK_minus,  setgaps,        {.i = GAP_RESET } },
+	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = GAP_TOGGLE} },
 };
 
 /* button definitions */

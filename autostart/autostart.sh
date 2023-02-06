@@ -7,7 +7,11 @@ log=$HOME/.dwm-autostart.log
 
 echo -e "$dt\n" >> $log
 
-$HOME/.fehbg
+[[ -f $HOME/.fehbg ]] && {
+	$HOME/.fehbg
+} || {
+	dwm-wallpaper random
+}
 
 sh $HOME/.dwm/adjust-temp.sh
 
