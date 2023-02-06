@@ -67,6 +67,7 @@ static const Rule rules[] = {
 	{ "firefox"              , "Places"           , NULL         , 0           , 1            , -1 } ,
 	{ "falkon"               , "falkon"           , NULL         , 0           , 1            , -1 } ,
 	{ "Falkon"               , "Browsing Library" , NULL         , 0           , 1            , -1 } ,
+	{ "wemeetapp"            , "wemeetapp"        , NULL         , 1 << 4      , 1            , -1 } ,
 	{ "Zotero"               , NULL               , NULL         , 1 << 5      , 0            , -1 } ,
 	{ "ktorrent"             , NULL               , NULL         , 1 << 6      , 0            , -1 } ,
 	{ "netease-cloud-music"  , NULL               , NULL         , 1 << 7      , 0            , -1 } ,
