@@ -19,18 +19,19 @@ case $1 in
 		if [[ `echo "$target_brightness >= $min_brightness" | bc` -eq 1 ]]; then
 			brightnessctl -q s "$step-"
 		else
-			# xbacklight -set $min_brightness
 			brightnessctl -q s "$min_brightness"
 			notify "🚫  亮度已经足够低了!"
 		fi
 		;;
 	w)
+		disp=`xrandr | grep -w connected | cut -f1 -d' '`
 		# 调整为暖色调
-		xbrightness.sh = eDP1 0.4 --temp
+		xbrightness.sh = $disp 0.4 --temp
 		;;
 	c)
 		# 调整为冷色调
-		xbrightness.sh = eDP1 0.6 --temp
+		disp=`xrandr | grep -w connected | cut -f1 -d' '`
+		xbrightness.sh = $disp 0.6 --temp
 		;;
 	*)  ;;
 esac
