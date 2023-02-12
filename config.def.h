@@ -113,131 +113,10 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, topbar ? NULL : "-b", NULL };
-static const char *dwmlauncher[] = { PATH("dwm-launcher"), "-fn", dmenufont, topbar ? NULL : "-b", NULL };
-static const char *dwmpowermenu[] = { PATH("dwm-powermenu"), "-fn", dmenufont, topbar ? NULL : "-b", NULL };
-static const char *termcmd[]  = { "st", NULL };
-static const char *termfloat[]  = { "st", "-c", "st-float", NULL };
 
 static const Key keys[] = {
-	TAGKEYS(                        XK_1,                      0)
-	TAGKEYS(                        XK_2,                      1)
-	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3)
-	TAGKEYS(                        XK_5,                      4)
-	TAGKEYS(                        XK_6,                      5)
-	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
-	/* modifier                     key        function        argument */
-	{ MODKEY              , XK_Return    , spawn          , {.v = termcmd   }   } ,
-	{ MODKEY|ShiftMask    , XK_Return    , spawn          , {.v = termfloat }   } ,
+	/* modifier             key            function         argument */
 	{ MODKEY              , XK_Tab       , view           , {0}                 } ,
-	{ MODKEY|ShiftMask    , XK_space     , togglefloating , {0}                 } ,
-	{ MODKEY              , XK_0         , view           , {.ui = ~0 }         } ,
-	{ MODKEY|ShiftMask    , XK_0         , tag            , {.ui = ~0 }         } ,
-	{ AltMask             , XK_space     , spawn          , {.v = dwmlauncher } } ,
-	{ SuperMask           , XK_space     , spawn          , {.v = dmenucmd }    } ,
-	{ MODKEY              , XK_minus     , setgaps        , {.i = -5 }          } ,
-	{ MODKEY              , XK_equal     , setgaps        , {.i = +5 }          } ,
-	{ MODKEY|ShiftMask    , XK_minus     , setgaps        , {.i = GAP_RESET }   } ,
-	{ MODKEY|ShiftMask    , XK_equal     , setgaps        , {.i = GAP_TOGGLE}   } ,
-
-	/* 一些功能键 */
-	{ 0,       XF86XK_AudioMute,		 spawn,      SHCMD(PATH("dwm-volume t")) },
-	{ 0,       XF86XK_AudioRaiseVolume,  spawn,      SHCMD(PATH("dwm-volume u")) },
-	{ 0,       XF86XK_AudioLowerVolume,  spawn,      SHCMD(PATH("dwm-volume d")) },
-    { 0,       XF86XK_MonBrightnessUp,   spawn,      SHCMD(PATH("dwm-backlight u")) },
-    { 0,       XF86XK_MonBrightnessDown, spawn,      SHCMD(PATH("dwm-backlight d")) },
-	{ AltMask, XF86XK_MonBrightnessUp,   spawn,      SHCMD(PATH("dwm-backlight w")) }, /* 切换暖色调 */
-	{ AltMask, XF86XK_MonBrightnessDown, spawn,      SHCMD(PATH("dwm-backlight c")) }, /* 切换冷色调 */
-
-	/* dwm-action, 通过编辑 ~/.dwm-action.sh 脚本, 可以不用重新编译 dwm 更换快捷键对应操作 */
-/*{{{*/
-	{ MODKEY              , XK_a         , spawn          , SHCMD("sh ~/.dwm-actions.sh a"  )         } ,
-	{ MODKEY              , XK_b         , spawn          , SHCMD("sh ~/.dwm-actions.sh b"  )         } ,
-	{ MODKEY              , XK_c         , spawn          , SHCMD("sh ~/.dwm-actions.sh c"  )         } ,
-	{ MODKEY              , XK_d         , spawn          , SHCMD("sh ~/.dwm-actions.sh d"  )         } ,
-	{ MODKEY              , XK_e         , spawn          , SHCMD("sh ~/.dwm-actions.sh e"  )         } ,
-	{ MODKEY              , XK_f         , spawn          , SHCMD("sh ~/.dwm-actions.sh f"  )         } ,
-	{ MODKEY              , XK_g         , spawn          , SHCMD("sh ~/.dwm-actions.sh g"  )         } ,
-	{ MODKEY              , XK_h         , spawn          , SHCMD("sh ~/.dwm-actions.sh h"  )         } ,
-	{ MODKEY              , XK_i         , spawn          , SHCMD("sh ~/.dwm-actions.sh i"  )         } ,
-	{ MODKEY              , XK_j         , spawn          , SHCMD("sh ~/.dwm-actions.sh j"  )         } ,
-	{ MODKEY              , XK_k         , spawn          , SHCMD("sh ~/.dwm-actions.sh k"  )         } ,
-	{ MODKEY              , XK_l         , spawn          , SHCMD("sh ~/.dwm-actions.sh l"  )         } ,
-	{ MODKEY              , XK_m         , spawn          , SHCMD("sh ~/.dwm-actions.sh m"  )         } ,
-	{ MODKEY              , XK_n         , spawn          , SHCMD("sh ~/.dwm-actions.sh n"  )         } ,
-	{ MODKEY              , XK_o         , spawn          , SHCMD("sh ~/.dwm-actions.sh o"  )         } ,
-	{ MODKEY              , XK_p         , spawn          , SHCMD("sh ~/.dwm-actions.sh p"  )         } ,
-	{ MODKEY              , XK_q         , spawn          , SHCMD("sh ~/.dwm-actions.sh q"  )         } ,
-	{ MODKEY              , XK_r         , spawn          , SHCMD("sh ~/.dwm-actions.sh r"  )         } ,
-	{ MODKEY              , XK_s         , spawn          , SHCMD("sh ~/.dwm-actions.sh s"  )         } ,
-	{ MODKEY              , XK_t         , spawn          , SHCMD("sh ~/.dwm-actions.sh t"  )         } ,
-	{ MODKEY              , XK_u         , spawn          , SHCMD("sh ~/.dwm-actions.sh u"  )         } ,
-	{ MODKEY              , XK_v         , spawn          , SHCMD("sh ~/.dwm-actions.sh v"  )         } ,
-	{ MODKEY              , XK_w         , spawn          , SHCMD("sh ~/.dwm-actions.sh w"  )         } ,
-	{ MODKEY              , XK_x         , spawn          , SHCMD("sh ~/.dwm-actions.sh x"  )         } ,
-	{ MODKEY              , XK_y         , spawn          , SHCMD("sh ~/.dwm-actions.sh y"  )         } ,
-	{ MODKEY              , XK_z         , spawn          , SHCMD("sh ~/.dwm-actions.sh z"  )         } ,
-
-	{ MODKEY|ShiftMask    , XK_a         , spawn          , SHCMD("sh ~/.dwm-actions.sh A"  )         } ,
-	{ MODKEY|ShiftMask    , XK_b         , spawn          , SHCMD("sh ~/.dwm-actions.sh B"  )         } ,
-	{ MODKEY|ShiftMask    , XK_c         , spawn          , SHCMD("sh ~/.dwm-actions.sh C"  )         } ,
-	{ MODKEY|ShiftMask    , XK_d         , spawn          , SHCMD("sh ~/.dwm-actions.sh D"  )         } ,
-	{ MODKEY|ShiftMask    , XK_e         , spawn          , SHCMD("sh ~/.dwm-actions.sh E"  )         } ,
-	{ MODKEY|ShiftMask    , XK_f         , spawn          , SHCMD("sh ~/.dwm-actions.sh F"  )         } ,
-	{ MODKEY|ShiftMask    , XK_g         , spawn          , SHCMD("sh ~/.dwm-actions.sh G"  )         } ,
-	{ MODKEY|ShiftMask    , XK_h         , spawn          , SHCMD("sh ~/.dwm-actions.sh H"  )         } ,
-	{ MODKEY|ShiftMask    , XK_i         , spawn          , SHCMD("sh ~/.dwm-actions.sh I"  )         } ,
-	{ MODKEY|ShiftMask    , XK_j         , spawn          , SHCMD("sh ~/.dwm-actions.sh J"  )         } ,
-	{ MODKEY|ShiftMask    , XK_k         , spawn          , SHCMD("sh ~/.dwm-actions.sh K"  )         } ,
-	{ MODKEY|ShiftMask    , XK_l         , spawn          , SHCMD("sh ~/.dwm-actions.sh L"  )         } ,
-	{ MODKEY|ShiftMask    , XK_m         , spawn          , SHCMD("sh ~/.dwm-actions.sh M"  )         } ,
-	{ MODKEY|ShiftMask    , XK_n         , spawn          , SHCMD("sh ~/.dwm-actions.sh N"  )         } ,
-	{ MODKEY|ShiftMask    , XK_o         , spawn          , SHCMD("sh ~/.dwm-actions.sh O"  )         } ,
-	{ MODKEY|ShiftMask    , XK_p         , spawn          , SHCMD("sh ~/.dwm-actions.sh P"  )         } ,
-	{ MODKEY|ShiftMask    , XK_q         , spawn          , SHCMD("sh ~/.dwm-actions.sh Q"  )         } ,
-	{ MODKEY|ShiftMask    , XK_r         , spawn          , SHCMD("sh ~/.dwm-actions.sh R"  )         } ,
-	{ MODKEY|ShiftMask    , XK_s         , spawn          , SHCMD("sh ~/.dwm-actions.sh S"  )         } ,
-	{ MODKEY|ShiftMask    , XK_t         , spawn          , SHCMD("sh ~/.dwm-actions.sh T"  )         } ,
-	{ MODKEY|ShiftMask    , XK_u         , spawn          , SHCMD("sh ~/.dwm-actions.sh U"  )         } ,
-	{ MODKEY|ShiftMask    , XK_v         , spawn          , SHCMD("sh ~/.dwm-actions.sh V"  )         } ,
-	{ MODKEY|ShiftMask    , XK_w         , spawn          , SHCMD("sh ~/.dwm-actions.sh W"  )         } ,
-	{ MODKEY|ShiftMask    , XK_x         , spawn          , SHCMD("sh ~/.dwm-actions.sh X"  )         } ,
-	{ MODKEY|ShiftMask    , XK_y         , spawn          , SHCMD("sh ~/.dwm-actions.sh Y"  )         } ,
-	{ MODKEY|ShiftMask    , XK_z         , spawn          , SHCMD("sh ~/.dwm-actions.sh Z"  )         } ,
-
-	{ MODKEY              , XK_F1        , spawn          , SHCMD("sh ~/.dwm-actions.sh  f1")         } ,
-	{ MODKEY              , XK_F1        , spawn          , SHCMD("sh ~/.dwm-actions.sh  f1")         } ,
-	{ MODKEY              , XK_F2        , spawn          , SHCMD("sh ~/.dwm-actions.sh  f2")         } ,
-	{ MODKEY              , XK_F3        , spawn          , SHCMD("sh ~/.dwm-actions.sh  f3")         } ,
-	{ MODKEY              , XK_F4        , spawn          , SHCMD("sh ~/.dwm-actions.sh  f4")         } ,
-	{ MODKEY              , XK_F5        , spawn          , SHCMD("sh ~/.dwm-actions.sh  f5")         } ,
-	{ MODKEY              , XK_F6        , spawn          , SHCMD("sh ~/.dwm-actions.sh  f6")         } ,
-	{ MODKEY              , XK_F7        , spawn          , SHCMD("sh ~/.dwm-actions.sh  f7")         } ,
-	{ MODKEY              , XK_F8        , spawn          , SHCMD("sh ~/.dwm-actions.sh  f8")         } ,
-	{ MODKEY              , XK_F9        , spawn          , SHCMD("sh ~/.dwm-actions.sh  f9")         } ,
-	{ MODKEY              , XK_F10       , spawn          , SHCMD("sh ~/.dwm-actions.sh f10")         } ,
-	{ MODKEY              , XK_F11       , spawn          , SHCMD("sh ~/.dwm-actions.sh f11")         } ,
-	{ MODKEY              , XK_F12       , spawn          , SHCMD("sh ~/.dwm-actions.sh f12")         } ,
-
-	{ MODKEY|ShiftMask    , XK_F1        , spawn          , SHCMD("sh ~/.dwm-actions.sh  F1")         } ,
-	{ MODKEY|ShiftMask    , XK_F1        , spawn          , SHCMD("sh ~/.dwm-actions.sh  F1")         } ,
-	{ MODKEY|ShiftMask    , XK_F2        , spawn          , SHCMD("sh ~/.dwm-actions.sh  F2")         } ,
-	{ MODKEY|ShiftMask    , XK_F3        , spawn          , SHCMD("sh ~/.dwm-actions.sh  F3")         } ,
-	{ MODKEY|ShiftMask    , XK_F4        , spawn          , SHCMD("sh ~/.dwm-actions.sh  F4")         } ,
-	{ MODKEY|ShiftMask    , XK_F5        , spawn          , SHCMD("sh ~/.dwm-actions.sh  F5")         } ,
-	{ MODKEY|ShiftMask    , XK_F6        , spawn          , SHCMD("sh ~/.dwm-actions.sh  F6")         } ,
-	{ MODKEY|ShiftMask    , XK_F7        , spawn          , SHCMD("sh ~/.dwm-actions.sh  F7")         } ,
-	{ MODKEY|ShiftMask    , XK_F8        , spawn          , SHCMD("sh ~/.dwm-actions.sh  F8")         } ,
-	{ MODKEY|ShiftMask    , XK_F9        , spawn          , SHCMD("sh ~/.dwm-actions.sh  F9")         } ,
-	{ MODKEY|ShiftMask    , XK_F10       , spawn          , SHCMD("sh ~/.dwm-actions.sh F10")         } ,
-	{ MODKEY|ShiftMask    , XK_F11       , spawn          , SHCMD("sh ~/.dwm-actions.sh F11")         } ,
-	{ MODKEY|ShiftMask    , XK_F12       , spawn          , SHCMD("sh ~/.dwm-actions.sh F12")         } ,
-
-	{ MODKEY              , XK_semicolon , spawn          , SHCMD("sh ~/.dwm-actions.sh \";\"")       } ,
-/*}}}*/
-
 };
 
 /* button definitions */
@@ -315,10 +194,20 @@ toggletagex(const Arg *arg)
 	toggletag(&((Arg) { .ui = 1 << arg->ui }));
 }
 
-void
-tagall(const Arg *arg)
-{
-	tag(&((Arg){.ui = ~0}));
+void tview(const Arg *arg) {
+	view(&((Arg) { 0 }));
+}
+
+void setgapsex(const Arg *arg) {
+	setgaps(&((Arg) { .i = arg->i }));
+}
+
+void resetgapex(const Arg *arg) {
+	setgaps(&((Arg) { .i = GAP_RESET }));
+}
+
+void togglegapex(const Arg *arg) {
+	setgaps(&((Arg) { .i = GAP_TOGGLE }));
 }
 
 /* signal definitions */
@@ -326,27 +215,28 @@ tagall(const Arg *arg)
 /* trigger signals using `xsetroot -name "fsignal:<signame> [<type> <value>]"` */
 static Signal signals[] = {
 	/* signum           function */
-	{ "focusstack"     , focusstack     } ,
-	{ "setmfact"       , setmfact       } ,
-	{ "togglebar"      , togglebar      } ,
-	{ "incnmaster"     , incnmaster     } ,
-	{ "togglefloating" , togglefloating } ,
-	{ "focusmon"       , focusmon       } ,
-	{ "tagmon"         , tagmon         } ,
-	{ "zoom"           , zoom           } ,
-	{ "view"           , view           } ,
-	{ "viewall"        , viewall        } ,
-	{ "viewex"         , viewex         } ,
-	{ "toggleview"     , view           } ,
-	{ "toggleviewex"   , toggleviewex   } ,
-	{ "tag"            , tag            } ,
-	{ "tagall"         , tagall         } ,
-	{ "tagex"          , tagex          } ,
-	{ "toggletag"      , tag            } ,
-	{ "toggletagex"    , toggletagex    } ,
-	{ "killclient"     , killclient     } ,
-	{ "quit"           , quit           } ,
-	{ "setlayout"      , setlayout      } ,
-	{ "setlayoutex"    , setlayoutex    } ,
-	{ "setlayoutallex" , setlayoutallex } ,
+	{ "focusstack"     , focusstack     } , /* 切换聚焦的窗口                */
+	{ "setmfact"       , setmfact       } , /* 调整 master 区域比例          */
+	{ "togglebar"      , togglebar      } , /* 切换显示/隐藏 bar             */
+	{ "incnmaster"     , incnmaster     } , /* 调整 master 窗口数量          */
+	{ "togglefloating" , togglefloating } , /* 切换 floating                 */
+	{ "zoom"           , zoom           } , /* 切换主从窗口                  */
+	{ "viewall"        , viewall        } , /* 显示所有工作区的窗口          */
+	{ "viewex"         , viewex         } , /* 切换工作区                    */
+	{ "toggleviewex"   , toggleviewex   } , /* 切换显示/隐藏某一工作区       */
+	{ "tagex"          , tagex          } , /* 将当前窗口移动到某一工作区    */
+	{ "toggletagex"    , toggletagex    } , /* 在某工作区下显示/隐藏当前窗口 */
+	{ "killclient"     , killclient     } , /* 关闭窗口                      */
+	{ "setlayoutex"    , setlayoutex    } , /* 设置布局                      */
+	{ "setlayoutallex" , setlayoutallex } , /* 为所有工作区设置同一布局      */
+	{ "view"           , tview          } , /* 切换当前工作区与上一个工作区  */
+	{ "setgapsex"      , setgapsex      } , /* 设置 gap                      */
+	{ "resetgapex"     , resetgapex     } , /* 重设 gap 值                   */
+	{ "togglegapex"    , togglegapex    } , /* 切换 gap                      */
+
+	// { "setlayout"      , setlayout      } ,
+	// { "quit"           , quit           } ,
+	// { "focusmon"       , focusmon       } ,
+	// { "tagmon"         , tagmon         } ,
+
 };
