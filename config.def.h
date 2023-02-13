@@ -114,9 +114,8 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, topbar ? NULL : "-b", NULL };
 
-static const Key keys[] = {
+static const Key keys[1] = {
 	/* modifier             key            function         argument */
-	{ MODKEY              , XK_Tab       , view           , {0}                 } ,
 };
 
 /* button definitions */
@@ -163,6 +162,12 @@ viewex(const Arg *arg)
 }
 
 void
+viewnextex(const Arg *arg)
+{
+	viewnext(arg);
+}
+
+void
 viewall(const Arg *arg)
 {
 	view(&((Arg){.ui = ~0}));
@@ -192,10 +197,6 @@ void
 toggletagex(const Arg *arg)
 {
 	toggletag(&((Arg) { .ui = 1 << arg->ui }));
-}
-
-void tview(const Arg *arg) {
-	view(&((Arg) { 0 }));
 }
 
 void setgapsex(const Arg *arg) {
@@ -229,10 +230,10 @@ static Signal signals[] = {
 	{ "killclient"     , killclient     } , /* 关闭窗口                      */
 	{ "setlayoutex"    , setlayoutex    } , /* 设置布局                      */
 	{ "setlayoutallex" , setlayoutallex } , /* 为所有工作区设置同一布局      */
-	{ "view"           , tview          } , /* 切换当前工作区与上一个工作区  */
 	{ "setgapsex"      , setgapsex      } , /* 设置 gap                      */
 	{ "resetgapex"     , resetgapex     } , /* 重设 gap 值                   */
 	{ "togglegapex"    , togglegapex    } , /* 切换 gap                      */
+	{ "viewnextex"     , viewnextex     } , /* 切换下一个工作区 */
 
 	// { "setlayout"      , setlayout      } ,
 	// { "quit"           , quit           } ,

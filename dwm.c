@@ -238,6 +238,7 @@ static void monocle(Monitor *m);
 static void motionnotify(XEvent *e);
 static void movemouse(const Arg *arg);
 static Client *nexttiled(Client *c);
+static void viewnext(const Arg* arg);
 static void pop(Client *c);
 static void propertynotify(XEvent *e);
 static void quit(const Arg *arg);
@@ -2086,7 +2087,6 @@ setup(void)
 	Atom utf8string;
 
 	/* 初始化 dwmblocks pid 文件 */
-	// strcpy(char *, const char *)
 	strcpy(dwmblockslockfile, getenv("HOME"));
 	strncat(dwmblockslockfile, "/.local/dwmblocks/dwmblocks.pid", 63-strlen(dwmblockslockfile));
 
@@ -2884,6 +2884,25 @@ view(const Arg *arg)
 
 	focus(NULL);
 	arrange(selmon);
+}
+
+void
+viewnext(const Arg *arg)
+{
+	int ui;
+	int l = LENGTH(tags), curtag = selmon->pertag->curtag; // c1: 标记当前是否只选择了一个 tag
+
+	if (!arg || !(arg->i == 1 || arg->i == -1)) { return; }
+
+	// if tag 0 was chosen, then do nothing
+	if (!curtag) {
+		return;
+	}
+	
+	ui = curtag;
+	// 否则, 选择当前 tag 的下一个/上一个 tag
+	ui = (ui + l + arg->i - 1) % l + 1;
+	view(&((Arg) { .ui = (1 << (ui - 1))}));
 }
 
 Client *
